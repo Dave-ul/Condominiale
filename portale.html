@@ -1752,7 +1752,7 @@
         html += `<button class="btn btn-sm btn-success" onclick="verifyPayment('${p.id}')">✓ Verifica</button>`;
       }
       if (p.receipt_path) {
-        html += `<button class="btn btn-sm btn-ghost" onclick="viewReceipt('${esc(p.receipt_path)}')">👁 Ricevuta</button>`;
+        html += `<button class="btn btn-sm btn-ghost" data-path="${esc(p.receipt_path)}" onclick="viewReceipt(this.dataset.path)">👁 Ricevuta</button>`;
       }
     }
 
