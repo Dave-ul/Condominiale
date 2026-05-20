@@ -17,7 +17,7 @@ create table if not exists profiles (
   email     text unique,
   unit      text,
   phone     text,
-  role      text default 'resident',
+  role      text default 'resident' check (role in ('resident', 'admin')),
   created_at timestamptz default now()
 );
 
@@ -36,7 +36,7 @@ create table if not exists payments (
   description  text not null,
   amount       numeric(10,2) not null,
   due_date     date not null,
-  status       text default 'pending',
+  status       text default 'pending' check (status in ('pending', 'paid', 'overdue')),
   receipt_path text,
   created_at   timestamptz default now()
 );
@@ -47,9 +47,13 @@ create table if not exists requests (
   title       text not null,
   description text,
   category    text,
-  status      text default 'open',
+  status      text default 'aperta' check (status in ('aperta', 'in_corso', 'chiusa')),
   created_at  timestamptz default now()
 );
+
+-- Indici sulle colonne più interrogate
+create index if not exists idx_payments_resident_id on payments(resident_id);
+create index if not exists idx_requests_resident_id on requests(resident_id);
 
 -- ============================================================
 -- ROW LEVEL SECURITY
