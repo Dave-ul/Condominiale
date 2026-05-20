@@ -1,0 +1,2145 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portale Condomini – Rocca Amministrazioni</title>
+  <meta name="description" content="Area riservata ai condomini di Rocca Amministrazioni. Gestisci documenti, pagamenti e richieste di assistenza.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Supabase JS v2 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+
+  <style>
+    /* ============================
+       CSS CUSTOM PROPERTIES
+    ============================ */
+    :root {
+      --navy:         #0d1b2a;
+      --navy-light:   #162032;
+      --blue-mid:     #1e4d7b;
+      --accent:       #c8a96e;
+      --accent-hover: #b8954e;
+      --white:        #ffffff;
+      --gray-50:      #f4f6f9;
+      --gray-100:     #e8ecf1;
+      --gray-200:     #d1d9e0;
+      --gray-400:     #8e9ab0;
+      --gray-600:     #5a6478;
+      --gray-800:     #2d3748;
+      --text:         #1a202c;
+      --text-light:   #4a5568;
+      --success:      #22c55e;
+      --error:        #ef4444;
+      --warning:      #f59e0b;
+
+      --font-sans:  'Inter', system-ui, sans-serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
+
+      --shadow-sm:  0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+      --shadow-md:  0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.05);
+      --shadow-lg:  0 10px 40px rgba(0,0,0,.10), 0 4px 12px rgba(0,0,0,.06);
+      --shadow-xl:  0 20px 60px rgba(0,0,0,.12), 0 8px 20px rgba(0,0,0,.08);
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+
+      --transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ============================
+       RESET & BASE
+    ============================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--gray-50);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    input, textarea, select { font-family: inherit; }
+
+    /* ============================
+       AUTH SCREEN
+    ============================ */
+    #auth-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--navy);
+      padding: 2rem 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #auth-screen::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(200,169,110,.06) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(30,77,123,.3) 0%, transparent 50%);
+    }
+    .auth-card {
+      position: relative;
+      z-index: 1;
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-xl);
+      width: 100%;
+      max-width: 440px;
+      overflow: hidden;
+    }
+    .auth-header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue-mid) 100%);
+      padding: 2.25rem 2.5rem 2rem;
+      text-align: center;
+    }
+    .auth-brand {
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: .2rem;
+    }
+    .auth-tagline {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .auth-body { padding: 2rem 2.5rem 2.5rem; }
+    .auth-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: .3rem;
+    }
+    .auth-subtitle {
+      font-size: .83rem;
+      color: var(--text-light);
+      margin-bottom: 1.75rem;
+    }
+    .auth-tabs {
+      display: flex;
+      background: var(--gray-50);
+      border-radius: var(--radius-md);
+      padding: .25rem;
+      margin-bottom: 1.75rem;
+      gap: .25rem;
+    }
+    .auth-tab {
+      flex: 1;
+      padding: .6rem;
+      text-align: center;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--text-light);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition);
+      border: none;
+      background: none;
+    }
+    .auth-tab.active {
+      background: var(--white);
+      color: var(--navy);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ============================
+       FORM ELEMENTS
+    ============================ */
+    .form-group { margin-bottom: 1.1rem; }
+    .form-label {
+      display: block;
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: .35rem;
+      letter-spacing: .02em;
+    }
+    .form-input,
+    .form-textarea,
+    .form-select {
+      width: 100%;
+      padding: .8rem 1rem;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      font-size: .9rem;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--white);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+      appearance: none;
+    }
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(200,169,110,.15);
+    }
+    .form-textarea { resize: vertical; min-height: 90px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; }
+
+    /* ============================
+       BUTTONS
+    ============================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .45rem;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: .88rem;
+      letter-spacing: .02em;
+      padding: .75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+      white-space: nowrap;
+      cursor: pointer;
+      border: none;
+    }
+    .btn:disabled { opacity: .6; cursor: not-allowed; transform: none !important; }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--navy);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(200,169,110,.35);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--navy);
+      border: 1.5px solid var(--gray-200);
+    }
+    .btn-outline:hover:not(:disabled) {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .btn-ghost {
+      background: var(--gray-50);
+      color: var(--text-light);
+      border: 1px solid var(--gray-100);
+    }
+    .btn-ghost:hover:not(:disabled) {
+      background: var(--gray-100);
+      color: var(--text);
+    }
+    .btn-danger {
+      background: rgba(239,68,68,.1);
+      color: var(--error);
+      border: 1px solid rgba(239,68,68,.2);
+    }
+    .btn-danger:hover:not(:disabled) {
+      background: rgba(239,68,68,.15);
+    }
+    .btn-success {
+      background: rgba(34,197,94,.1);
+      color: #15803d;
+      border: 1px solid rgba(34,197,94,.2);
+    }
+    .btn-success:hover:not(:disabled) { background: rgba(34,197,94,.15); }
+    .btn-sm {
+      padding: .45rem .9rem;
+      font-size: .8rem;
+    }
+    .btn-full { width: 100%; }
+    .btn-icon { padding: .5rem; border-radius: var(--radius-sm); }
+
+    /* ============================
+       AUTH ALERTS
+    ============================ */
+    .alert {
+      padding: .85rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: .84rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: .6rem;
+    }
+    .alert-success {
+      background: rgba(34,197,94,.1);
+      color: #15803d;
+      border: 1px solid rgba(34,197,94,.25);
+    }
+    .alert-error {
+      background: rgba(239,68,68,.08);
+      color: #b91c1c;
+      border: 1px solid rgba(239,68,68,.2);
+    }
+    .alert-warning {
+      background: rgba(245,158,11,.1);
+      color: #92400e;
+      border: 1px solid rgba(245,158,11,.2);
+    }
+
+    /* ============================
+       PORTAL LAYOUT
+    ============================ */
+    #portal-screen { display: none; min-height: 100vh; flex-direction: column; }
+    #portal-screen.active { display: flex; }
+
+    /* Navbar */
+    .portal-nav {
+      background: var(--navy);
+      padding: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 24px rgba(0,0,0,.25);
+    }
+    .portal-nav-inner {
+      max-width: 1280px;
+      margin-inline: auto;
+      padding-inline: clamp(1rem, 3vw, 2rem);
+      display: flex;
+      align-items: center;
+      height: 64px;
+      gap: 1rem;
+    }
+    .portal-brand {
+      display: flex;
+      flex-direction: column;
+      gap: .05rem;
+      flex-shrink: 0;
+    }
+    .portal-brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: .01em;
+    }
+    .portal-brand-tagline {
+      font-size: .58rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .portal-nav-divider {
+      width: 1px;
+      height: 28px;
+      background: rgba(255,255,255,.15);
+      flex-shrink: 0;
+    }
+    .portal-nav-user {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      flex: 1;
+    }
+    .portal-nav-avatar {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--navy);
+      flex-shrink: 0;
+    }
+    .portal-nav-info { display: flex; flex-direction: column; gap: .05rem; }
+    .portal-nav-name {
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1;
+    }
+    .portal-nav-role {
+      font-size: .68rem;
+      color: rgba(255,255,255,.45);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .portal-nav-actions { margin-left: auto; display: flex; align-items: center; gap: .5rem; }
+    .btn-logout {
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.7);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: .45rem .9rem;
+      border-radius: var(--radius-sm);
+      font-size: .82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .btn-logout:hover {
+      background: rgba(239,68,68,.2);
+      border-color: rgba(239,68,68,.3);
+      color: #fca5a5;
+    }
+
+    /* Tab Bar */
+    .portal-tabs-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-100);
+      box-shadow: var(--shadow-sm);
+    }
+    .portal-tabs-inner {
+      max-width: 1280px;
+      margin-inline: auto;
+      padding-inline: clamp(1rem, 3vw, 2rem);
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .portal-tabs-inner::-webkit-scrollbar { display: none; }
+    .portal-tab {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      padding: 1rem 1.4rem;
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--text-light);
+      cursor: pointer;
+      border-bottom: 2.5px solid transparent;
+      transition: all var(--transition);
+      white-space: nowrap;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      flex-shrink: 0;
+    }
+    .portal-tab:hover { color: var(--navy); background: var(--gray-50); }
+    .portal-tab.active {
+      color: var(--blue-mid);
+      border-bottom-color: var(--accent);
+    }
+    .portal-tab .tab-icon { font-size: 1rem; }
+
+    /* Content Area */
+    .portal-content {
+      flex: 1;
+      max-width: 1280px;
+      width: 100%;
+      margin-inline: auto;
+      padding: 2rem clamp(1rem, 3vw, 2rem);
+    }
+
+    /* Section Header */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+      flex-wrap: wrap;
+    }
+    .section-header-left { display: flex; flex-direction: column; gap: .2rem; }
+    .section-heading {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .section-desc {
+      font-size: .85rem;
+      color: var(--text-light);
+    }
+
+    /* ============================
+       SPINNER
+    ============================ */
+    .spinner-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid var(--gray-200);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner-text {
+      font-size: .85rem;
+      color: var(--text-light);
+    }
+
+    /* ============================
+       EMPTY STATE
+    ============================ */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      text-align: center;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1.5px dashed var(--gray-200);
+    }
+    .empty-state-icon { font-size: 3rem; margin-bottom: .75rem; opacity: .6; }
+    .empty-state-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: .35rem;
+    }
+    .empty-state-desc {
+      font-size: .85rem;
+      color: var(--text-light);
+      max-width: 320px;
+    }
+
+    /* ============================
+       DOCUMENTI – CARD GRID
+    ============================ */
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .doc-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--gray-100);
+      box-shadow: var(--shadow-sm);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: all var(--transition);
+    }
+    .doc-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .doc-card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: .85rem;
+    }
+    .doc-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--navy), var(--blue-mid));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .doc-info { flex: 1; min-width: 0; }
+    .doc-name {
+      font-size: .93rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: .2rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .doc-meta {
+      font-size: .76rem;
+      color: var(--text-light);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      padding: .25rem .65rem;
+      border-radius: 999px;
+      font-size: .72rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .badge-blue { background: rgba(30,77,123,.1); color: var(--blue-mid); }
+    .badge-amber { background: rgba(245,158,11,.12); color: #92400e; }
+    .badge-green { background: rgba(34,197,94,.12); color: #15803d; }
+    .badge-gray { background: var(--gray-100); color: var(--gray-600); }
+    .badge-red { background: rgba(239,68,68,.1); color: #b91c1c; }
+    .badge-navy { background: rgba(13,27,42,.08); color: var(--navy); }
+
+    /* ============================
+       UPLOAD AREA
+    ============================ */
+    .upload-area {
+      border: 2px dashed var(--gray-200);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--transition);
+      background: var(--gray-50);
+    }
+    .upload-area:hover, .upload-area.dragover {
+      border-color: var(--accent);
+      background: rgba(200,169,110,.05);
+    }
+    .upload-area-icon { font-size: 2rem; margin-bottom: .5rem; }
+    .upload-area-text { font-size: .88rem; font-weight: 600; color: var(--text-light); }
+    .upload-area-sub { font-size: .75rem; color: var(--gray-400); margin-top: .25rem; }
+    .upload-filename {
+      font-size: .82rem;
+      color: var(--blue-mid);
+      font-weight: 600;
+      margin-top: .5rem;
+    }
+
+    /* ============================
+       PAYMENTS TABLE
+    ============================ */
+    .table-wrap {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--gray-100);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .data-table th {
+      background: var(--gray-50);
+      padding: .85rem 1.1rem;
+      text-align: left;
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--gray-600);
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .data-table td {
+      padding: .95rem 1.1rem;
+      font-size: .88rem;
+      color: var(--text);
+      border-bottom: 1px solid var(--gray-100);
+      vertical-align: middle;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tbody tr { transition: background var(--transition); }
+    .data-table tbody tr:hover { background: var(--gray-50); }
+    .amount-col { font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; }
+
+    /* ============================
+       REQUESTS CARDS
+    ============================ */
+    .requests-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .request-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--gray-100);
+      box-shadow: var(--shadow-sm);
+      padding: 1.4rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.1rem;
+      transition: all var(--transition);
+    }
+    .request-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--gray-200);
+    }
+    .request-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: var(--gray-50);
+      border: 1px solid var(--gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+    .request-body { flex: 1; min-width: 0; }
+    .request-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      flex-wrap: wrap;
+      margin-bottom: .4rem;
+    }
+    .request-title {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .request-desc {
+      font-size: .84rem;
+      color: var(--text-light);
+      line-height: 1.55;
+      margin-bottom: .6rem;
+    }
+    .request-meta {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      flex-wrap: wrap;
+      font-size: .77rem;
+      color: var(--gray-400);
+    }
+    .request-actions { display: flex; align-items: center; gap: .5rem; flex-shrink: 0; }
+
+    /* ============================
+       ADMIN TAB
+    ============================ */
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .admin-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--gray-100);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .admin-card-header {
+      padding: 1.1rem 1.4rem;
+      border-bottom: 1px solid var(--gray-100);
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .admin-card-title {
+      font-size: .93rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .admin-card-body { padding: 1rem 0; }
+    .resident-row {
+      display: flex;
+      align-items: center;
+      gap: .85rem;
+      padding: .75rem 1.4rem;
+      transition: background var(--transition);
+    }
+    .resident-row:hover { background: var(--gray-50); }
+    .resident-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy), var(--blue-mid));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .resident-info { flex: 1; min-width: 0; }
+    .resident-name {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .resident-details {
+      font-size: .77rem;
+      color: var(--text-light);
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      padding: 1.25rem 1.4rem;
+    }
+    .stat-item {
+      background: var(--gray-50);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      text-align: center;
+      border: 1px solid var(--gray-100);
+    }
+    .stat-value {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: .3rem;
+    }
+    .stat-label {
+      font-size: .78rem;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    /* ============================
+       MODALS
+    ============================ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(13,27,42,.75);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .22s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-xl);
+      width: 100%;
+      max-width: 480px;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: translateY(24px) scale(.97);
+      transition: transform .25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .modal-overlay.open .modal-card {
+      transform: translateY(0) scale(1);
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 1.75rem 1.1rem;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .modal-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .modal-close {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--gray-100);
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all var(--transition);
+      border: none;
+      flex-shrink: 0;
+    }
+    .modal-close:hover { background: var(--gray-200); color: var(--text); }
+    .modal-body { padding: 1.5rem 1.75rem; }
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: .75rem;
+      padding: 1.1rem 1.75rem 1.5rem;
+      border-top: 1px solid var(--gray-100);
+    }
+
+    /* ============================
+       STATUS SELECT
+    ============================ */
+    .status-select {
+      padding: .38rem .7rem;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--gray-200);
+      font-size: .8rem;
+      font-weight: 600;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--white);
+      cursor: pointer;
+      outline: none;
+      transition: border-color var(--transition);
+    }
+    .status-select:focus { border-color: var(--accent); }
+
+    /* ============================
+       SCROLLBAR
+    ============================ */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
+
+    /* ============================
+       RESPONSIVE
+    ============================ */
+    @media (max-width: 768px) {
+      .form-row { grid-template-columns: 1fr; }
+      .admin-grid { grid-template-columns: 1fr; }
+      .portal-nav-divider { display: none; }
+      .portal-nav-info .portal-nav-role { display: none; }
+      .section-header { flex-direction: column; align-items: flex-start; }
+      .data-table { font-size: .8rem; }
+      .data-table th, .data-table td { padding: .75rem .75rem; }
+    }
+    @media (max-width: 540px) {
+      .auth-body { padding: 1.5rem; }
+      .modal-card { max-height: 95vh; }
+      .modal-body { padding: 1.25rem; }
+      .modal-header { padding: 1.25rem 1.25rem .9rem; }
+      .modal-footer { padding: .9rem 1.25rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========================
+     AUTH SCREEN
+======================== -->
+<div id="auth-screen">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="auth-brand">Rocca Amministrazioni</div>
+      <div class="auth-tagline">Portale Condomini</div>
+    </div>
+    <div class="auth-body">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">Accedi</button>
+        <button class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">Registrati</button>
+      </div>
+
+      <!-- Login Form -->
+      <div id="form-login">
+        <div class="auth-title">Bentornato</div>
+        <div class="auth-subtitle">Inserisci le tue credenziali per accedere al portale</div>
+        <div id="login-alert"></div>
+        <form onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label class="form-label" for="login-email">Email</label>
+            <input class="form-input" type="email" id="login-email" placeholder="mario.rossi@email.it" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="login-password">Password</label>
+            <input class="form-input" type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password">
+          </div>
+          <button type="submit" class="btn btn-primary btn-full" id="btn-login" style="margin-top: .5rem;">
+            Accedi al portale
+          </button>
+        </form>
+        <p style="text-align:center; margin-top: 1.25rem; font-size: .8rem; color: var(--text-light);">
+          Non hai un account?
+          <button onclick="switchAuthTab('register')" style="color: var(--blue-mid); font-weight: 600; background: none; border: none; cursor: pointer; font-size: .8rem;">Registrati</button>
+        </p>
+      </div>
+
+      <!-- Register Form -->
+      <div id="form-register" style="display: none;">
+        <div class="auth-title">Crea il tuo account</div>
+        <div class="auth-subtitle">Completa la registrazione per accedere al portale</div>
+        <div id="register-alert"></div>
+        <form onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label class="form-label" for="reg-name">Nome e Cognome *</label>
+            <input class="form-input" type="text" id="reg-name" placeholder="Mario Rossi" required autocomplete="name">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="reg-unit">Unità / Interno *</label>
+              <input class="form-input" type="text" id="reg-unit" placeholder="Int. 5" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="reg-phone">Telefono</label>
+              <input class="form-input" type="tel" id="reg-phone" placeholder="+39 333 000 0000" autocomplete="tel">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reg-email">Email *</label>
+            <input class="form-input" type="email" id="reg-email" placeholder="mario.rossi@email.it" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reg-password">Password *</label>
+            <input class="form-input" type="password" id="reg-password" placeholder="Almeno 8 caratteri" required autocomplete="new-password" minlength="8">
+          </div>
+          <button type="submit" class="btn btn-primary btn-full" id="btn-register" style="margin-top: .5rem;">
+            Crea account
+          </button>
+        </form>
+        <p style="text-align:center; margin-top: 1.25rem; font-size: .8rem; color: var(--text-light);">
+          Hai già un account?
+          <button onclick="switchAuthTab('login')" style="color: var(--blue-mid); font-weight: 600; background: none; border: none; cursor: pointer; font-size: .8rem;">Accedi</button>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ========================
+     PORTAL SCREEN
+======================== -->
+<div id="portal-screen">
+
+  <!-- Navbar -->
+  <nav class="portal-nav">
+    <div class="portal-nav-inner">
+      <a href="index.html" class="portal-brand" title="Torna al sito">
+        <span class="portal-brand-name">Rocca Amministrazioni</span>
+        <span class="portal-brand-tagline">Portale Condomini</span>
+      </a>
+      <div class="portal-nav-divider"></div>
+      <div class="portal-nav-user">
+        <div class="portal-nav-avatar" id="nav-avatar">?</div>
+        <div class="portal-nav-info">
+          <span class="portal-nav-name" id="nav-username">—</span>
+          <span class="portal-nav-role" id="nav-role">—</span>
+        </div>
+      </div>
+      <div class="portal-nav-actions">
+        <button class="btn-logout" onclick="handleLogout()">Esci</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Tab Bar -->
+  <div class="portal-tabs-bar">
+    <div class="portal-tabs-inner" id="portal-tabs-container">
+      <button class="portal-tab active" data-tab="documenti" onclick="switchTab('documenti')">
+        <span class="tab-icon">📁</span> Documenti
+      </button>
+      <button class="portal-tab" data-tab="pagamenti" onclick="switchTab('pagamenti')">
+        <span class="tab-icon">💳</span> Pagamenti
+      </button>
+      <button class="portal-tab" data-tab="richieste" onclick="switchTab('richieste')">
+        <span class="tab-icon">🔧</span> Richieste
+      </button>
+      <button class="portal-tab admin-only" data-tab="admin" onclick="switchTab('admin')" style="display:none;">
+        <span class="tab-icon">⚙️</span> Admin
+      </button>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <main class="portal-content">
+
+    <!-- ---- TAB: Documenti ---- -->
+    <div id="tab-documenti" class="tab-panel">
+      <div class="section-header">
+        <div class="section-header-left">
+          <h2 class="section-heading">Documenti Condominiali</h2>
+          <span class="section-desc">Scarica verbali, rendiconti, contratti e comunicazioni</span>
+        </div>
+        <button class="btn btn-primary admin-only" onclick="openModal('modal-upload-doc')" style="display:none;">
+          + Carica documento
+        </button>
+      </div>
+      <div id="docs-content">
+        <div class="spinner-wrap"><div class="spinner"></div><span class="spinner-text">Caricamento documenti…</span></div>
+      </div>
+    </div>
+
+    <!-- ---- TAB: Pagamenti ---- -->
+    <div id="tab-pagamenti" class="tab-panel" style="display:none;">
+      <div class="section-header">
+        <div class="section-header-left">
+          <h2 class="section-heading">Pagamenti</h2>
+          <span class="section-desc">Gestione quote e versamenti condominiali</span>
+        </div>
+        <button class="btn btn-primary admin-only" onclick="openModal('modal-new-payment')" style="display:none;">
+          + Nuovo pagamento
+        </button>
+      </div>
+      <div id="payments-content">
+        <div class="spinner-wrap"><div class="spinner"></div><span class="spinner-text">Caricamento pagamenti…</span></div>
+      </div>
+    </div>
+
+    <!-- ---- TAB: Richieste ---- -->
+    <div id="tab-richieste" class="tab-panel" style="display:none;">
+      <div class="section-header">
+        <div class="section-header-left">
+          <h2 class="section-heading">Richieste di Assistenza</h2>
+          <span class="section-desc">Segnalazioni, guasti e richieste di informazioni</span>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('modal-new-request')">
+          + Nuova richiesta
+        </button>
+      </div>
+      <div id="requests-content">
+        <div class="spinner-wrap"><div class="spinner"></div><span class="spinner-text">Caricamento richieste…</span></div>
+      </div>
+    </div>
+
+    <!-- ---- TAB: Admin ---- -->
+    <div id="tab-admin" class="tab-panel" style="display:none;">
+      <div class="section-header">
+        <div class="section-header-left">
+          <h2 class="section-heading">Pannello Amministratore</h2>
+          <span class="section-desc">Gestione condomini e riepilogo pagamenti</span>
+        </div>
+      </div>
+      <div id="admin-content">
+        <div class="spinner-wrap"><div class="spinner"></div><span class="spinner-text">Caricamento dati…</span></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ========================
+     MODALS
+======================== -->
+
+<!-- Modal: Upload Document -->
+<div class="modal-overlay" id="modal-upload-doc" onclick="overlayClose(event, 'modal-upload-doc')">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <span class="modal-title">Carica documento</span>
+      <button class="modal-close" onclick="closeModal('modal-upload-doc')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="upload-doc-alert"></div>
+      <div class="form-group">
+        <label class="form-label" for="doc-name">Nome documento *</label>
+        <input class="form-input" type="text" id="doc-name" placeholder="es. Verbale assemblea maggio 2026">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="doc-category">Categoria *</label>
+        <select class="form-select" id="doc-category">
+          <option value="">Seleziona categoria</option>
+          <option value="verbale">📋 Verbale</option>
+          <option value="rendiconto">📊 Rendiconto</option>
+          <option value="contratto">📄 Contratto</option>
+          <option value="circolare">📢 Circolare</option>
+          <option value="altro">📁 Altro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">File *</label>
+        <div class="upload-area" id="doc-upload-area" onclick="document.getElementById('doc-file').click()">
+          <div class="upload-area-icon">📎</div>
+          <div class="upload-area-text">Clicca per selezionare un file</div>
+          <div class="upload-area-sub">PDF, DOC, XLS, JPG – max 20MB</div>
+          <div class="upload-filename" id="doc-filename"></div>
+        </div>
+        <input type="file" id="doc-file" style="display:none;" onchange="fileSelected('doc-file','doc-filename','doc-upload-area')" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-upload-doc')">Annulla</button>
+      <button class="btn btn-primary" id="btn-upload-doc" onclick="handleUploadDoc()">Carica</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: New Payment -->
+<div class="modal-overlay" id="modal-new-payment" onclick="overlayClose(event, 'modal-new-payment')">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <span class="modal-title">Nuovo pagamento</span>
+      <button class="modal-close" onclick="closeModal('modal-new-payment')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="new-payment-alert"></div>
+      <div class="form-group">
+        <label class="form-label" for="pay-email">Email condomino *</label>
+        <input class="form-input" type="email" id="pay-email" placeholder="mario.rossi@email.it">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="pay-desc">Descrizione *</label>
+        <input class="form-input" type="text" id="pay-desc" placeholder="es. Quota condominiale Q2 2026">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="pay-amount">Importo (€) *</label>
+          <input class="form-input" type="number" id="pay-amount" placeholder="150.00" min="0.01" step="0.01">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="pay-due">Scadenza *</label>
+          <input class="form-input" type="date" id="pay-due">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-new-payment')">Annulla</button>
+      <button class="btn btn-primary" id="btn-new-payment" onclick="handleNewPayment()">Crea pagamento</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Upload Receipt -->
+<div class="modal-overlay" id="modal-upload-receipt" onclick="overlayClose(event, 'modal-upload-receipt')">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <span class="modal-title">Carica ricevuta di pagamento</span>
+      <button class="modal-close" onclick="closeModal('modal-upload-receipt')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="receipt-alert"></div>
+      <p style="font-size:.86rem; color: var(--text-light); margin-bottom: 1.1rem;">Carica la ricevuta o la prova di avvenuto pagamento. Sarà verificata dall'amministratore.</p>
+      <div class="form-group">
+        <label class="form-label">Ricevuta *</label>
+        <div class="upload-area" id="receipt-upload-area" onclick="document.getElementById('receipt-file').click()">
+          <div class="upload-area-icon">🧾</div>
+          <div class="upload-area-text">Clicca per selezionare la ricevuta</div>
+          <div class="upload-area-sub">PDF, JPG, PNG – max 10MB</div>
+          <div class="upload-filename" id="receipt-filename"></div>
+        </div>
+        <input type="file" id="receipt-file" style="display:none;" onchange="fileSelected('receipt-file','receipt-filename','receipt-upload-area')" accept=".pdf,.jpg,.jpeg,.png">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-upload-receipt')">Annulla</button>
+      <button class="btn btn-primary" id="btn-upload-receipt" onclick="handleUploadReceipt()">Invia ricevuta</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: New Request -->
+<div class="modal-overlay" id="modal-new-request" onclick="overlayClose(event, 'modal-new-request')">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <span class="modal-title">Nuova richiesta di assistenza</span>
+      <button class="modal-close" onclick="closeModal('modal-new-request')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="new-request-alert"></div>
+      <div class="form-group">
+        <label class="form-label" for="req-category">Categoria *</label>
+        <select class="form-select" id="req-category">
+          <option value="">Seleziona categoria</option>
+          <option value="guasto">🚨 Guasto</option>
+          <option value="manutenzione">🔧 Manutenzione</option>
+          <option value="documento">📄 Richiesta documento</option>
+          <option value="informazione">ℹ️ Informazione</option>
+          <option value="altro">💬 Altro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="req-title">Oggetto *</label>
+        <input class="form-input" type="text" id="req-title" placeholder="es. Perdita acqua scala B">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="req-desc">Descrizione *</label>
+        <textarea class="form-textarea" id="req-desc" placeholder="Descrivi la problematica con il maggior dettaglio possibile…"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-new-request')">Annulla</button>
+      <button class="btn btn-primary" id="btn-new-request" onclick="handleNewRequest()">Invia richiesta</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========================
+     JAVASCRIPT
+======================== -->
+<script>
+(function () {
+  'use strict';
+
+  /* ==========================================
+     SUPABASE INIT
+  ========================================== */
+  const SUPABASE_URL = 'https://edwqwlirkuizkeumshbg.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_qpirxDA7b_vutYmWBi38nw_YLl7Nl5O';
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  /* ==========================================
+     STATE
+  ========================================== */
+  let currentUser  = null;   // supabase auth user
+  let currentProfile = null; // profiles table row
+  let activeTab    = 'documenti';
+  let pendingReceiptPaymentId = null; // payment id for receipt upload
+
+  /* ==========================================
+     HELPERS
+  ========================================== */
+  function esc(str) {
+    if (str == null) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function fmt(dateStr) {
+    if (!dateStr) return '—';
+    try {
+      const d = new Date(dateStr);
+      return d.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    } catch (e) {
+      return dateStr;
+    }
+  }
+
+  function fmtMoney(val) {
+    if (val == null) return '—';
+    return '€ ' + Number(val).toFixed(2).replace('.', ',');
+  }
+
+  function initials(name) {
+    if (!name) return '?';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    return parts[0].substring(0, 2).toUpperCase();
+  }
+
+  function showAlert(containerId, type, message) {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    const icons = { success: '✓', error: '✕', warning: '⚠' };
+    el.innerHTML = `<div class="alert alert-${type}"><span>${icons[type] || '●'}</span><span>${esc(message)}</span></div>`;
+  }
+
+  function clearAlert(containerId) {
+    const el = document.getElementById(containerId);
+    if (el) el.innerHTML = '';
+  }
+
+  function setLoading(btnId, loading, text) {
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+    btn.disabled = loading;
+    if (text) btn.textContent = text;
+  }
+
+  function docCategoryIcon(cat) {
+    const map = { verbale: '📋', rendiconto: '📊', contratto: '📄', circolare: '📢', altro: '📁' };
+    return map[cat] || '📁';
+  }
+
+  function docCategoryLabel(cat) {
+    const map = { verbale: 'Verbale', rendiconto: 'Rendiconto', contratto: 'Contratto', circolare: 'Circolare', altro: 'Altro' };
+    return map[cat] || cat;
+  }
+
+  function requestCategoryIcon(cat) {
+    const map = { guasto: '🚨', manutenzione: '🔧', documento: '📄', informazione: 'ℹ️', altro: '💬' };
+    return map[cat] || '💬';
+  }
+
+  function requestStatusBadge(status) {
+    const map = {
+      aperta:    `<span class="badge badge-red">Aperta</span>`,
+      in_corso:  `<span class="badge badge-amber">In corso</span>`,
+      chiusa:    `<span class="badge badge-gray">Chiusa</span>`
+    };
+    return map[status] || `<span class="badge badge-gray">${esc(status)}</span>`;
+  }
+
+  function paymentStatusBadge(status) {
+    const map = {
+      pending:  `<span class="badge badge-amber">In attesa</span>`,
+      paid:     `<span class="badge badge-green">Pagato</span>`,
+      verified: `<span class="badge badge-blue">Verificato</span>`
+    };
+    return map[status] || `<span class="badge badge-gray">${esc(status)}</span>`;
+  }
+
+  function isAdmin() {
+    return currentProfile && currentProfile.role === 'admin';
+  }
+
+  /* ==========================================
+     MODAL HELPERS
+  ========================================== */
+  window.openModal = function (id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  window.closeModal = function (id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  };
+
+  window.overlayClose = function (event, id) {
+    if (event.target.classList.contains('modal-overlay')) closeModal(id);
+  };
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(function (m) {
+        m.classList.remove('open');
+      });
+      document.body.style.overflow = '';
+    }
+  });
+
+  /* ==========================================
+     FILE UPLOAD AREA
+  ========================================== */
+  window.fileSelected = function (inputId, nameId, areaId) {
+    const file = document.getElementById(inputId).files[0];
+    const nameEl = document.getElementById(nameId);
+    const areaEl = document.getElementById(areaId);
+    if (file && nameEl) {
+      nameEl.textContent = file.name;
+      if (areaEl) areaEl.style.borderColor = 'var(--accent)';
+    }
+  };
+
+  /* ==========================================
+     AUTH
+  ========================================== */
+  window.switchAuthTab = function (tab) {
+    const isLogin = tab === 'login';
+    document.getElementById('form-login').style.display    = isLogin ? '' : 'none';
+    document.getElementById('form-register').style.display = isLogin ? 'none' : '';
+    document.getElementById('tab-login').classList.toggle('active', isLogin);
+    document.getElementById('tab-register').classList.toggle('active', !isLogin);
+    clearAlert('login-alert');
+    clearAlert('register-alert');
+  };
+
+  window.handleLogin = async function (e) {
+    e.preventDefault();
+    const email    = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    clearAlert('login-alert');
+    setLoading('btn-login', true, 'Accesso in corso…');
+
+    const { error } = await sb.auth.signInWithPassword({ email, password });
+    setLoading('btn-login', false, 'Accedi al portale');
+    if (error) {
+      showAlert('login-alert', 'error', 'Email o password non corretti. Riprova.');
+    }
+    // onAuthStateChange handles the rest
+  };
+
+  window.handleRegister = async function (e) {
+    e.preventDefault();
+    const full_name = document.getElementById('reg-name').value.trim();
+    const unit      = document.getElementById('reg-unit').value.trim();
+    const phone     = document.getElementById('reg-phone').value.trim();
+    const email     = document.getElementById('reg-email').value.trim();
+    const password  = document.getElementById('reg-password').value;
+
+    if (!full_name || !unit || !email || !password) {
+      showAlert('register-alert', 'error', 'Compila tutti i campi obbligatori.');
+      return;
+    }
+    clearAlert('register-alert');
+    setLoading('btn-register', true, 'Registrazione in corso…');
+
+    const { error } = await sb.auth.signUp({
+      email,
+      password,
+      options: { data: { full_name, unit, phone } }
+    });
+
+    setLoading('btn-register', false, 'Crea account');
+    if (error) {
+      showAlert('register-alert', 'error', error.message || 'Errore durante la registrazione.');
+    } else {
+      showAlert('register-alert', 'success', 'Registrazione completata! Controlla la tua email per confermare l\'account, poi accedi.');
+    }
+  };
+
+  window.handleLogout = async function () {
+    await sb.auth.signOut();
+    currentUser = null;
+    currentProfile = null;
+    document.getElementById('portal-screen').classList.remove('active');
+    document.getElementById('auth-screen').style.display = '';
+  };
+
+  /* ==========================================
+     AUTH STATE CHANGE
+  ========================================== */
+  sb.auth.onAuthStateChange(async function (event, session) {
+    if (session && session.user) {
+      currentUser = session.user;
+      await loadOrCreateProfile();
+      renderPortal();
+    } else {
+      currentUser = null;
+      currentProfile = null;
+      document.getElementById('auth-screen').style.display = '';
+      document.getElementById('portal-screen').classList.remove('active');
+    }
+  });
+
+  async function loadOrCreateProfile() {
+    const { data, error } = await sb
+      .from('profiles')
+      .select('*')
+      .eq('id', currentUser.id)
+      .single();
+
+    if (error || !data) {
+      // create profile
+      const meta = currentUser.user_metadata || {};
+      const newProfile = {
+        id:        currentUser.id,
+        full_name: meta.full_name || currentUser.email,
+        email:     currentUser.email,
+        unit:      meta.unit || '',
+        phone:     meta.phone || '',
+        role:      'resident'
+      };
+      const { data: created } = await sb.from('profiles').insert(newProfile).select().single();
+      currentProfile = created || newProfile;
+    } else {
+      currentProfile = data;
+    }
+  }
+
+  /* ==========================================
+     RENDER PORTAL
+  ========================================== */
+  function renderPortal() {
+    // Hide auth, show portal
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('portal-screen').classList.add('active');
+
+    // Update navbar
+    const name = currentProfile.full_name || currentUser.email;
+    document.getElementById('nav-username').textContent = name;
+    document.getElementById('nav-avatar').textContent   = initials(name);
+    document.getElementById('nav-role').textContent     = isAdmin() ? 'Amministratore' : 'Condomino';
+
+    // Show/hide admin elements
+    document.querySelectorAll('.admin-only').forEach(function (el) {
+      el.style.display = isAdmin() ? '' : 'none';
+    });
+
+    // Load initial tab
+    loadTab(activeTab);
+  }
+
+  /* ==========================================
+     TAB SWITCHING
+  ========================================== */
+  window.switchTab = function (tab) {
+    if (tab === 'admin' && !isAdmin()) return;
+    activeTab = tab;
+
+    document.querySelectorAll('.portal-tab').forEach(function (btn) {
+      btn.classList.toggle('active', btn.dataset.tab === tab);
+    });
+    document.querySelectorAll('.tab-panel').forEach(function (panel) {
+      panel.style.display = panel.id === 'tab-' + tab ? '' : 'none';
+    });
+
+    loadTab(tab);
+  };
+
+  function loadTab(tab) {
+    if (tab === 'documenti')  loadDocuments();
+    if (tab === 'pagamenti')  loadPayments();
+    if (tab === 'richieste')  loadRequests();
+    if (tab === 'admin')      loadAdmin();
+  }
+
+  /* ==========================================
+     TAB: DOCUMENTI
+  ========================================== */
+  async function loadDocuments() {
+    const container = document.getElementById('docs-content');
+    container.innerHTML = spinnerHTML('Caricamento documenti…');
+
+    const { data, error } = await sb
+      .from('documents')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      container.innerHTML = errorHTML('Impossibile caricare i documenti.');
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      container.innerHTML = emptyHTML('📁', 'Nessun documento', 'Non ci sono documenti disponibili al momento.');
+      return;
+    }
+
+    container.innerHTML = `<div class="doc-grid">${data.map(docCard).join('')}</div>`;
+  }
+
+  function docCard(doc) {
+    return `
+      <div class="doc-card">
+        <div class="doc-card-top">
+          <div class="doc-icon">${docCategoryIcon(doc.category)}</div>
+          <div class="doc-info">
+            <div class="doc-name" title="${esc(doc.name)}">${esc(doc.name)}</div>
+            <div class="doc-meta">${fmt(doc.created_at)}</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:.5rem;">
+          <span class="badge badge-navy">${esc(docCategoryLabel(doc.category))}</span>
+          <button class="btn btn-outline btn-sm" onclick="downloadDoc('${esc(doc.file_path)}')">
+            ⬇ Scarica
+          </button>
+        </div>
+      </div>`;
+  }
+
+  window.downloadDoc = async function (filePath) {
+    const { data, error } = await sb.storage
+      .from('documenti')
+      .createSignedUrl(filePath, 60);
+
+    if (error || !data) {
+      alert('Impossibile generare il link per il download. Riprova.');
+      return;
+    }
+    window.open(data.signedUrl, '_blank');
+  };
+
+  /* Upload Document */
+  window.handleUploadDoc = async function () {
+    const name     = document.getElementById('doc-name').value.trim();
+    const category = document.getElementById('doc-category').value;
+    const file     = document.getElementById('doc-file').files[0];
+
+    clearAlert('upload-doc-alert');
+
+    if (!name)     { showAlert('upload-doc-alert', 'error', 'Inserisci il nome del documento.'); return; }
+    if (!category) { showAlert('upload-doc-alert', 'error', 'Seleziona una categoria.'); return; }
+    if (!file)     { showAlert('upload-doc-alert', 'error', 'Seleziona un file da caricare.'); return; }
+
+    setLoading('btn-upload-doc', true, 'Caricamento…');
+
+    const ext       = file.name.split('.').pop();
+    const filePath  = `${Date.now()}_${name.replace(/\s+/g, '_')}.${ext}`;
+
+    const { error: uploadErr } = await sb.storage.from('documenti').upload(filePath, file);
+    if (uploadErr) {
+      showAlert('upload-doc-alert', 'error', 'Errore nel caricamento del file: ' + uploadErr.message);
+      setLoading('btn-upload-doc', false, 'Carica');
+      return;
+    }
+
+    const { error: insertErr } = await sb.from('documents').insert({
+      name,
+      category,
+      file_path:   filePath,
+      uploaded_by: currentUser.id
+    });
+
+    if (insertErr) {
+      showAlert('upload-doc-alert', 'error', 'Errore nel salvataggio del record: ' + insertErr.message);
+      setLoading('btn-upload-doc', false, 'Carica');
+      return;
+    }
+
+    showAlert('upload-doc-alert', 'success', 'Documento caricato con successo!');
+    setLoading('btn-upload-doc', false, 'Carica');
+    // Reset form
+    document.getElementById('doc-name').value = '';
+    document.getElementById('doc-category').value = '';
+    document.getElementById('doc-file').value = '';
+    document.getElementById('doc-filename').textContent = '';
+    document.getElementById('doc-upload-area').style.borderColor = '';
+
+    setTimeout(function () {
+      closeModal('modal-upload-doc');
+      clearAlert('upload-doc-alert');
+      if (activeTab === 'documenti') loadDocuments();
+    }, 1200);
+  };
+
+  /* ==========================================
+     TAB: PAGAMENTI
+  ========================================== */
+  async function loadPayments() {
+    const container = document.getElementById('payments-content');
+    container.innerHTML = spinnerHTML('Caricamento pagamenti…');
+
+    let query = sb.from('payments').select('*, profiles(full_name, unit, email)').order('created_at', { ascending: false });
+    if (!isAdmin()) {
+      query = query.eq('resident_id', currentUser.id);
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+      container.innerHTML = errorHTML('Impossibile caricare i pagamenti.');
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      container.innerHTML = emptyHTML('💳', 'Nessun pagamento', isAdmin() ? 'Non ci sono pagamenti registrati.' : 'Non hai pagamenti assegnati al momento.');
+      return;
+    }
+
+    const adminCols = isAdmin() ? '<th>Condomino</th>' : '';
+    const rows = data.map(function (p) {
+      const profile    = p.profiles || {};
+      const adminCell  = isAdmin() ? `<td><div style="font-weight:600;">${esc(profile.full_name || '—')}</div><div style="font-size:.75rem;color:var(--text-light);">${esc(profile.unit || '')}</div></td>` : '';
+      const actionCell = buildPaymentActionCell(p);
+      return `
+        <tr>
+          ${adminCell}
+          <td>${esc(p.description)}</td>
+          <td class="amount-col">${fmtMoney(p.amount)}</td>
+          <td>${fmt(p.due_date)}</td>
+          <td>${paymentStatusBadge(p.status)}</td>
+          <td>${actionCell}</td>
+        </tr>`;
+    }).join('');
+
+    container.innerHTML = `
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              ${adminCols}
+              <th>Descrizione</th>
+              <th>Importo</th>
+              <th>Scadenza</th>
+              <th>Stato</th>
+              <th>Azione</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+  }
+
+  function buildPaymentActionCell(p) {
+    let html = '<div style="display:flex;gap:.4rem;flex-wrap:wrap;">';
+
+    if (!isAdmin() && p.status === 'pending') {
+      html += `<button class="btn btn-sm btn-primary" onclick="openReceiptModal('${p.id}')">📎 Ricevuta</button>`;
+    }
+
+    if (isAdmin()) {
+      if (p.status === 'paid') {
+        html += `<button class="btn btn-sm btn-success" onclick="verifyPayment('${p.id}')">✓ Verifica</button>`;
+      }
+      if (p.receipt_path) {
+        html += `<button class="btn btn-sm btn-ghost" onclick="viewReceipt('${esc(p.receipt_path)}')">👁 Ricevuta</button>`;
+      }
+    }
+
+    html += '</div>';
+    return html;
+  }
+
+  window.openReceiptModal = function (paymentId) {
+    pendingReceiptPaymentId = paymentId;
+    document.getElementById('receipt-file').value = '';
+    document.getElementById('receipt-filename').textContent = '';
+    document.getElementById('receipt-upload-area').style.borderColor = '';
+    clearAlert('receipt-alert');
+    openModal('modal-upload-receipt');
+  };
+
+  window.handleUploadReceipt = async function () {
+    const file = document.getElementById('receipt-file').files[0];
+    clearAlert('receipt-alert');
+
+    if (!file) { showAlert('receipt-alert', 'error', 'Seleziona un file da caricare.'); return; }
+    if (!pendingReceiptPaymentId) { showAlert('receipt-alert', 'error', 'Errore interno. Riprova.'); return; }
+
+    setLoading('btn-upload-receipt', true, 'Caricamento…');
+
+    const ext      = file.name.split('.').pop();
+    const filePath = `${currentUser.id}/${pendingReceiptPaymentId}_${Date.now()}.${ext}`;
+
+    const { error: uploadErr } = await sb.storage.from('ricevute').upload(filePath, file);
+    if (uploadErr) {
+      showAlert('receipt-alert', 'error', 'Errore nel caricamento: ' + uploadErr.message);
+      setLoading('btn-upload-receipt', false, 'Invia ricevuta');
+      return;
+    }
+
+    const { error: updateErr } = await sb.from('payments')
+      .update({ status: 'paid', receipt_path: filePath })
+      .eq('id', pendingReceiptPaymentId);
+
+    if (updateErr) {
+      showAlert('receipt-alert', 'error', 'Errore nell\'aggiornamento: ' + updateErr.message);
+      setLoading('btn-upload-receipt', false, 'Invia ricevuta');
+      return;
+    }
+
+    showAlert('receipt-alert', 'success', 'Ricevuta inviata! L\'amministratore verificherà il pagamento.');
+    setLoading('btn-upload-receipt', false, 'Invia ricevuta');
+
+    setTimeout(function () {
+      closeModal('modal-upload-receipt');
+      clearAlert('receipt-alert');
+      pendingReceiptPaymentId = null;
+      if (activeTab === 'pagamenti') loadPayments();
+    }, 1400);
+  };
+
+  window.verifyPayment = async function (paymentId) {
+    const { error } = await sb.from('payments')
+      .update({ status: 'verified' })
+      .eq('id', paymentId);
+
+    if (error) {
+      alert('Errore nella verifica: ' + error.message);
+    } else {
+      loadPayments();
+    }
+  };
+
+  window.viewReceipt = async function (filePath) {
+    const { data, error } = await sb.storage.from('ricevute').createSignedUrl(filePath, 60);
+    if (error || !data) {
+      alert('Impossibile aprire la ricevuta.');
+      return;
+    }
+    window.open(data.signedUrl, '_blank');
+  };
+
+  /* New Payment */
+  window.handleNewPayment = async function () {
+    const email  = document.getElementById('pay-email').value.trim();
+    const desc   = document.getElementById('pay-desc').value.trim();
+    const amount = parseFloat(document.getElementById('pay-amount').value);
+    const due    = document.getElementById('pay-due').value;
+
+    clearAlert('new-payment-alert');
+
+    if (!email)        { showAlert('new-payment-alert', 'error', 'Inserisci l\'email del condomino.'); return; }
+    if (!desc)         { showAlert('new-payment-alert', 'error', 'Inserisci la descrizione.'); return; }
+    if (!amount || amount <= 0) { showAlert('new-payment-alert', 'error', 'Inserisci un importo valido.'); return; }
+    if (!due)          { showAlert('new-payment-alert', 'error', 'Seleziona la data di scadenza.'); return; }
+
+    setLoading('btn-new-payment', true, 'Creazione…');
+
+    const { data: profile, error: profileErr } = await sb
+      .from('profiles')
+      .select('id')
+      .eq('email', email)
+      .single();
+
+    if (profileErr || !profile) {
+      showAlert('new-payment-alert', 'error', 'Nessun condomino trovato con questa email.');
+      setLoading('btn-new-payment', false, 'Crea pagamento');
+      return;
+    }
+
+    const { error: insertErr } = await sb.from('payments').insert({
+      resident_id:  profile.id,
+      description:  desc,
+      amount:       amount,
+      due_date:     due,
+      status:       'pending'
+    });
+
+    if (insertErr) {
+      showAlert('new-payment-alert', 'error', 'Errore: ' + insertErr.message);
+      setLoading('btn-new-payment', false, 'Crea pagamento');
+      return;
+    }
+
+    showAlert('new-payment-alert', 'success', 'Pagamento creato con successo!');
+    setLoading('btn-new-payment', false, 'Crea pagamento');
+    // Reset
+    ['pay-email','pay-desc','pay-amount','pay-due'].forEach(function (id) {
+      document.getElementById(id).value = '';
+    });
+
+    setTimeout(function () {
+      closeModal('modal-new-payment');
+      clearAlert('new-payment-alert');
+      if (activeTab === 'pagamenti') loadPayments();
+    }, 1200);
+  };
+
+  /* ==========================================
+     TAB: RICHIESTE
+  ========================================== */
+  async function loadRequests() {
+    const container = document.getElementById('requests-content');
+    container.innerHTML = spinnerHTML('Caricamento richieste…');
+
+    let query = sb.from('requests').select('*, profiles(full_name, unit)').order('created_at', { ascending: false });
+    if (!isAdmin()) {
+      query = query.eq('resident_id', currentUser.id);
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+      container.innerHTML = errorHTML('Impossibile caricare le richieste.');
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      container.innerHTML = emptyHTML('🔧', 'Nessuna richiesta', isAdmin() ? 'Non ci sono richieste aperte.' : 'Non hai ancora inviato richieste.');
+      return;
+    }
+
+    container.innerHTML = `<div class="requests-list">${data.map(requestCard).join('')}</div>`;
+  }
+
+  function requestCard(req) {
+    const profile  = req.profiles || {};
+    const authorInfo = isAdmin()
+      ? `<span title="Condomino">${esc(profile.full_name || '—')}${profile.unit ? ' – ' + esc(profile.unit) : ''}</span> · `
+      : '';
+
+    const adminAction = isAdmin()
+      ? `<select class="status-select" onchange="updateRequestStatus('${req.id}', this.value)">
+          <option value="aperta"   ${req.status === 'aperta'   ? 'selected' : ''}>Aperta</option>
+          <option value="in_corso" ${req.status === 'in_corso' ? 'selected' : ''}>In corso</option>
+          <option value="chiusa"   ${req.status === 'chiusa'   ? 'selected' : ''}>Chiusa</option>
+        </select>`
+      : '';
+
+    return `
+      <div class="request-card">
+        <div class="request-icon">${requestCategoryIcon(req.category)}</div>
+        <div class="request-body">
+          <div class="request-header-row">
+            <span class="request-title">${esc(req.title)}</span>
+            <div style="display:flex;align-items:center;gap:.5rem;">
+              ${requestStatusBadge(req.status)}
+            </div>
+          </div>
+          <div class="request-desc">${esc(req.description)}</div>
+          <div class="request-meta">
+            ${authorInfo}
+            <span>📅 ${fmt(req.created_at)}</span>
+            <span class="badge badge-navy" style="font-size:.7rem;">${esc(req.category)}</span>
+          </div>
+        </div>
+        ${adminAction ? `<div class="request-actions">${adminAction}</div>` : ''}
+      </div>`;
+  }
+
+  window.updateRequestStatus = async function (requestId, status) {
+    const { error } = await sb.from('requests').update({ status }).eq('id', requestId);
+    if (error) {
+      alert('Errore nell\'aggiornamento dello stato: ' + error.message);
+      if (activeTab === 'richieste') loadRequests();
+    }
+  };
+
+  /* New Request */
+  window.handleNewRequest = async function () {
+    const category = document.getElementById('req-category').value;
+    const title    = document.getElementById('req-title').value.trim();
+    const desc     = document.getElementById('req-desc').value.trim();
+
+    clearAlert('new-request-alert');
+
+    if (!category) { showAlert('new-request-alert', 'error', 'Seleziona una categoria.'); return; }
+    if (!title)    { showAlert('new-request-alert', 'error', 'Inserisci l\'oggetto della richiesta.'); return; }
+    if (!desc)     { showAlert('new-request-alert', 'error', 'Inserisci una descrizione.'); return; }
+
+    setLoading('btn-new-request', true, 'Invio…');
+
+    const { error } = await sb.from('requests').insert({
+      resident_id:  currentUser.id,
+      title,
+      description:  desc,
+      category,
+      status:       'aperta'
+    });
+
+    if (error) {
+      showAlert('new-request-alert', 'error', 'Errore: ' + error.message);
+      setLoading('btn-new-request', false, 'Invia richiesta');
+      return;
+    }
+
+    showAlert('new-request-alert', 'success', 'Richiesta inviata! L\'amministratore la prenderà in carico.');
+    setLoading('btn-new-request', false, 'Invia richiesta');
+    ['req-category','req-title','req-desc'].forEach(function (id) {
+      document.getElementById(id).value = '';
+    });
+
+    setTimeout(function () {
+      closeModal('modal-new-request');
+      clearAlert('new-request-alert');
+      if (activeTab === 'richieste') loadRequests();
+    }, 1400);
+  };
+
+  /* ==========================================
+     TAB: ADMIN
+  ========================================== */
+  async function loadAdmin() {
+    if (!isAdmin()) return;
+    const container = document.getElementById('admin-content');
+    container.innerHTML = spinnerHTML('Caricamento dati…');
+
+    const [residentsRes, paymentsRes] = await Promise.all([
+      sb.from('profiles').select('*').eq('role', 'resident').order('full_name'),
+      sb.from('payments').select('status')
+    ]);
+
+    if (residentsRes.error || paymentsRes.error) {
+      container.innerHTML = errorHTML('Errore nel caricamento dei dati.');
+      return;
+    }
+
+    const residents     = residentsRes.data || [];
+    const payments      = paymentsRes.data  || [];
+    const countPending  = payments.filter(function (p) { return p.status === 'pending'; }).length;
+    const countPaid     = payments.filter(function (p) { return p.status === 'paid';    }).length;
+    const countVerified = payments.filter(function (p) { return p.status === 'verified';}).length;
+
+    const residentsHTML = residents.length === 0
+      ? '<div class="resident-row" style="color:var(--text-light);font-size:.85rem;padding:1.4rem;">Nessun condomino registrato.</div>'
+      : residents.map(function (r) {
+          return `
+            <div class="resident-row">
+              <div class="resident-avatar">${initials(r.full_name || r.email)}</div>
+              <div class="resident-info">
+                <div class="resident-name">${esc(r.full_name || r.email)}</div>
+                <div class="resident-details">
+                  ${r.unit ? 'Int. ' + esc(r.unit) + '  ·  ' : ''}${esc(r.phone || 'N/A')}
+                  ${r.email ? '<br><span style="font-size:.72rem;color:var(--gray-400)">' + esc(r.email) + '</span>' : ''}
+                </div>
+              </div>
+            </div>`;
+        }).join('');
+
+    container.innerHTML = `
+      <div class="admin-grid">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <span style="font-size:1.1rem;">👥</span>
+            <span class="admin-card-title">Condomini Registrati</span>
+            <span class="badge badge-navy" style="margin-left:auto;">${residents.length}</span>
+          </div>
+          <div class="admin-card-body">${residentsHTML}</div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <span style="font-size:1.1rem;">💰</span>
+            <span class="admin-card-title">Riepilogo Pagamenti</span>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-item">
+              <div class="stat-value" style="color: #92400e;">${countPending}</div>
+              <div class="stat-label">In attesa</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" style="color: #15803d;">${countPaid}</div>
+              <div class="stat-label">Da verificare</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" style="color: var(--blue-mid);">${countVerified}</div>
+              <div class="stat-label">Verificati</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">${payments.length}</div>
+              <div class="stat-label">Totale</div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  /* ==========================================
+     HTML HELPERS
+  ========================================== */
+  function spinnerHTML(text) {
+    return `<div class="spinner-wrap"><div class="spinner"></div><span class="spinner-text">${esc(text)}</span></div>`;
+  }
+
+  function emptyHTML(icon, title, desc) {
+    return `
+      <div class="empty-state">
+        <div class="empty-state-icon">${icon}</div>
+        <div class="empty-state-title">${esc(title)}</div>
+        <div class="empty-state-desc">${esc(desc)}</div>
+      </div>`;
+  }
+
+  function errorHTML(msg) {
+    return `
+      <div class="empty-state">
+        <div class="empty-state-icon">⚠️</div>
+        <div class="empty-state-title">Errore</div>
+        <div class="empty-state-desc">${esc(msg)}</div>
+      </div>`;
+  }
+
+  /* ==========================================
+     DRAG & DROP UPLOAD AREAS
+  ========================================== */
+  ['doc-upload-area', 'receipt-upload-area'].forEach(function (areaId) {
+    const area = document.getElementById(areaId);
+    if (!area) return;
+    area.addEventListener('dragover', function (e) {
+      e.preventDefault();
+      area.classList.add('dragover');
+    });
+    area.addEventListener('dragleave', function () {
+      area.classList.remove('dragover');
+    });
+    area.addEventListener('drop', function (e) {
+      e.preventDefault();
+      area.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      if (!file) return;
+      const inputId = areaId === 'doc-upload-area' ? 'doc-file' : 'receipt-file';
+      const nameId  = areaId === 'doc-upload-area' ? 'doc-filename' : 'receipt-filename';
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      document.getElementById(inputId).files = dt.files;
+      fileSelected(inputId, nameId, areaId);
+    });
+  });
+
+  /* ==========================================
+     CHECK INITIAL SESSION
+  ========================================== */
+  (async function () {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) {
+      // Auth screen is already visible by default
+    }
+    // onAuthStateChange will fire and handle rendering
+  })();
+
+})();
+</script>
+
+</body>
+</html>
