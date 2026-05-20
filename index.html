@@ -1,1 +1,2008 @@
-PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9Iml0Ij4KPGhlYWQ+CiAgPG1ldGEgY2hhcnNldD0iVVRGLTgiPgogIDxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsIGluaXRpYWwtc2NhbGU9MS4wIj4KICA8dGl0bGU+Um9jY2EgQW1taW5pc3RyYXppb25lIOKAkyBTdHVkaW8gZGkgQW1taW5pc3RyYXppb25lIENvbmRvbWluaWFsZTwvdGl0bGU+CiAgPG1ldGEgbmFtZT0iZGVzY3JpcHRpb24iIGNvbnRlbnQ9IlJvY2NhIEFtbWluaXN0cmF6aW9uZSDigJMgU3R1ZGlvIHByb2Zlc3Npb25hbGUgZGkgYW1taW5pc3RyYXppb25lIGNvbmRvbWluaWFsZS4gR2VzdGlvbmUgdHJhc3BhcmVudGUsIGVmZmljaWVudGUgZSBkaWdpdGFsZSBkZWkgdm9zdHJpIGNvbmRvbWluaS4gUGllci1MdWlnaSBSb2NjYSwgYW1taW5pc3RyYXRvcmUgY2VydGlmaWNhdG8uIj4KICA8bWV0YSBuYW1lPSJyb2JvdHMiIGNvbnRlbnQ9ImluZGV4LCBmb2xsb3ciPgogIDxtZXRhIHByb3BlcnR5PSJvZzp0aXRsZSIgY29udGVudD0iUm9jY2EgQW1taW5pc3RyYXppb25lIOKAkyBTdHVkaW8gQ29uZG9taW5pYWxlIj4KICA8bWV0YSBwcm9wZXJ0eT0ib2c6ZGVzY3JpcHRpb24iIGNvbnRlbnQ9Ikdlc3Rpb25lIGNvbmRvbWluaWFsZSBwcm9mZXNzaW9uYWxlLCB0cmFzcGFyZW50ZSBlIGRpZ2l0YWxlLiI+CiAgPG1ldGEgcHJvcGVydHk9Im9nOnR5cGUiIGNvbnRlbnQ9IndlYnNpdGUiPgogIDxtZXRhIHByb3BlcnR5PSJvZzp1cmwiIGNvbnRlbnQ9Imh0dHBzOi8vd3d3LnJvY2NhYW1taW5pc3RyYXppb25pLml0Ij4KCiAgPCEtLSBHb29nbGUgRm9udHMgLS0+CiAgPGxpbmsgcmVsPSJwcmVjb25uZWN0IiBocmVmPSJodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tIj4KICA8bGluayByZWw9InByZWNvbm5lY3QiIGhyZWY9Imh0dHBzOi8vZm9udHMuZ3N0YXRpYy5jb20iIGNyb3Nzb3JpZ2luPgogIDxsaW5rIGhyZWY9Imh0dHBzOi8vZm9udHMuZ29vZ2xlYXBpcy5jb20vY3NzMj9mYW1pbHk9SW50ZXI6d2dodEAzMDA7NDAwOzUwMDs2MDA7NzAwOzgwMCZmYW1pbHk9UGxheWZhaXIrRGlzcGxheTp3Z2h0QDYwMDs3MDAmZGlzcGxheT1zd2FwIiByZWw9InN0eWxlc2hlZXQiPgoKICA8c3R5bGU+CiAgICAvKiA9PT09PT09PT09PT09PT09PT09PT09PT09PT09CiAgICAgICBDU1MgQ1VTVE9NIFBST1BFUlRJRVMKICAgID09PT09PT09PT09PT09PT09PT09PT09PT09PT0gKi8KICAgIDpyb290IHsKICAgICAgLS1uYXZ5OiAgICAgICAjMGQxYjJhOwogICAgICAtLW5hdnktbGlnaHQ6ICMxNjIwMzI7CiAgICAgIC0tYmx1ZTogICAgICAgIzFhM2E1YzsKICAgICAgLS1ibHVlLW1pZDogICAjMWU0ZDdiOwogICAgICAtLWFjY2VudDogICAgICNjOGE5NmU7CiAgICAgIC0tYWNjZW50LWhvdmVyOiAjYjg5NTRlOwogICAgICAtLXdoaXRlOiAgICAgICNmZmZmZmY7CiAgICAgIC0tb2ZmLXdoaXRlOiAgI2Y4ZjlmYjsKICAgICAgLS1ncmF5LTUwOiAgICAjZjRmNmY5OwogICAgICAtLWdyYXktMTAwOiAgICNlOGVjZjE7CiAgICAgIC0tZ3JheS0yMDA6ICAgI2QxZDllMDsKICAgICAgLS1ncmF5LTQwMDogICAjOGU5YWIwOwogICAgICAtLWdyYXktNjAwOiAgICM1YTY0Nzg7CiAgICAgIC0tZ3JheS04MDA6ICAgIzJkMzc0ODsKICAgICAgLS10ZXh0OiAgICAgICAjMWEyMDJjOwogICAgICAtLXRleHQtbGlnaHQ6ICM0YTU1Njg7CgogICAgICAtLWZvbnQtc2Fuczogd2FyKC0tZm9udC1zYW5zKTsgZm9udC1zaXplOiAxNnB4OyB9CiAgICBib2R5IHsKICAgICAgZm9udC1mYW1pbHk6IHZhcigtLWZvbnQtc2Fucyk7CiAgICAgIGNvbG9yOiB2YXIoLS10ZXh0KTsKICAgICAgYmFja2dyb3VuZDogdmFyKC0td2hpdGUpOwogICAgICBsaW5lLWhlaWdodDogMS42NTsKICAgICAgLXdlYmtpdC1mb250LXNtb290aGluZzogYW50aWFsaWFzZWQ7CiAgICB9CiAgICBpbWcgeyBtYXgtd2lkdGg6IDEwMCU7IGRpc3BsYXk6IGJsb2NrOyB9CiAgICBhIHsgY29sb3I6IGluaGVyaXQ7IHRleHQtZGVjb3JhdGlvbjogbm9uZTsgfQogICAgdWwgeyBsaXN0LXN0eWxlOiBub25lOyB9CiAgICBidXR0b24geyBjdXJzb3I6IHBvaW50ZXI7IGJvcmRlcjogbm9uZTsgYmFja2dyb3VuZDogbm9uZTsgZm9udC1mYW1pbHk6IGluaGVyaXQ7IH0K
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rocca Amministrazione – Studio di Amministrazione Condominiale</title>
+  <meta name="description" content="Rocca Amministrazione – Studio professionale di amministrazione condominiale. Gestione trasparente, efficiente e digitale dei vostri condomini. Pier-Luigi Rocca, amministratore certificato.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Rocca Amministrazione – Studio Condominiale">
+  <meta property="og:description" content="Gestione condominiale professionale, trasparente e digitale.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.roccaamministrazioni.it">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================
+       CSS CUSTOM PROPERTIES
+    ============================ */
+    :root {
+      --navy:       #0d1b2a;
+      --navy-light: #162032;
+      --blue:       #1a3a5c;
+      --blue-mid:   #1e4d7b;
+      --accent:     #c8a96e;
+      --accent-hover: #b8954e;
+      --white:      #ffffff;
+      --off-white:  #f8f9fb;
+      --gray-50:    #f4f6f9;
+      --gray-100:   #e8ecf1;
+      --gray-200:   #d1d9e0;
+      --gray-400:   #8e9ab0;
+      --gray-600:   #5a6478;
+      --gray-800:   #2d3748;
+      --text:       #1a202c;
+      --text-light: #4a5568;
+
+      --font-sans: 'Inter', system-ui, sans-serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
+
+      --shadow-sm:  0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+      --shadow-md:  0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.05);
+      --shadow-lg:  0 10px 40px rgba(0,0,0,.10), 0 4px 12px rgba(0,0,0,.06);
+      --shadow-xl:  0 20px 60px rgba(0,0,0,.12), 0 8px 20px rgba(0,0,0,.08);
+
+      --radius-sm:  6px;
+      --radius-md:  12px;
+      --radius-lg:  20px;
+      --radius-xl:  28px;
+
+      --transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ============================
+       RESET & BASE
+    ============================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* ============================
+       UTILITIES
+    ============================ */
+    .container {
+      max-width: 1180px;
+      margin-inline: auto;
+      padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+    }
+    .section-label {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .75rem;
+    }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.75rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin-top: .75rem;
+      line-height: 1.7;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: .9rem;
+      letter-spacing: .02em;
+      padding: .8rem 1.75rem;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--navy);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(200,169,110,.35);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,.5);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,.1);
+      border-color: var(--white);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--navy);
+      border: 1.5px solid var(--gray-200);
+    }
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ============================
+       NAVBAR
+    ============================ */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      transition: background var(--transition), box-shadow var(--transition), padding var(--transition);
+      padding: 1.25rem 0;
+    }
+    #navbar.scrolled {
+      background: rgba(13, 27, 42, .97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 2px 24px rgba(0,0,0,.25);
+      padding: .8rem 0;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .nav-brand {
+      display: flex;
+      flex-direction: column;
+      gap: .05rem;
+    }
+    .nav-brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: .01em;
+    }
+    .nav-brand-tagline {
+      font-size: .65rem;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: .25rem;
+    }
+    .nav-links a {
+      font-size: .85rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.8);
+      padding: .5rem .9rem;
+      border-radius: var(--radius-sm);
+      transition: color var(--transition), background var(--transition);
+      letter-spacing: .02em;
+    }
+    .nav-links a:hover {
+      color: var(--white);
+      background: rgba(255,255,255,.08);
+    }
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+    .nav-phone {
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: .02em;
+    }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: .5rem;
+      border-radius: var(--radius-sm);
+      transition: background var(--transition);
+    }
+    .nav-hamburger:hover { background: rgba(255,255,255,.1); }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--navy);
+      z-index: 999;
+      padding: 5rem 2rem 2rem;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--white);
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .mobile-close {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      font-size: 1.5rem;
+      color: var(--white);
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* ============================
+       HERO
+    ============================ */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: var(--navy);
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(13,27,42,.92) 40%, rgba(26,58,92,.75) 100%);
+      z-index: 1;
+    }
+    .hero-pattern {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 70% 50%, rgba(200,169,110,.06) 0%, transparent 60%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 60L60 0' stroke='rgba(255,255,255,0.02)' stroke-width='1'/%3E%3C/svg%3E");
+      z-index: 0;
+    }
+    /* Animated building silhouette */
+    .hero-illustration {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 55%;
+      max-width: 750px;
+      opacity: .07;
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+    }
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow-line {
+      width: 36px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    .hero-eyebrow span {
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 6vw, 4.2rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero-subtitle {
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+      color: rgba(255,255,255,.75);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      max-width: 540px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      color: rgba(255,255,255,.4);
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .hero-scroll-wheel {
+      width: 22px;
+      height: 36px;
+      border: 1.5px solid rgba(255,255,255,.25);
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      padding-top: 6px;
+    }
+    .hero-scroll-dot {
+      width: 4px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 4px;
+      animation: scrollDot 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollDot {
+      0%, 100% { opacity: 1; transform: translateY(0); }
+      50% { opacity: .3; transform: translateY(8px); }
+    }
+
+    /* ============================
+       TRUST BAR
+    ============================ */
+    #trust-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-100);
+      padding: 1.25rem 0;
+    }
+    .trust-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      font-size: .82rem;
+      font-weight: 500;
+      color: var(--gray-600);
+    }
+    .trust-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--gray-50);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--blue);
+      flex-shrink: 0;
+    }
+
+    /* ============================
+       CHI SIAMO
+    ============================ */
+    #chi-siamo {
+      padding: 6rem 0;
+      background: var(--white);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-image-wrap {
+      position: relative;
+    }
+    .about-image-main {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      border-radius: var(--radius-xl);
+      background: var(--gray-100);
+    }
+    .about-image-placeholder {
+      width: 100%;
+      height: 520px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue-mid) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+      color: rgba(255,255,255,.5);
+    }
+    .about-image-placeholder svg { width: 80px; height: 80px; opacity: .4; }
+    .about-badge-text {
+      font-size: .75rem;
+      font-weight: 600;
+      margin-top: .25rem;
+    }
+    .about-text { padding-left: 1rem; }
+    .about-highlights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .about-highlight {
+      background: var(--gray-50);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      border: 1px solid var(--gray-100);
+      transition: border-color var(--transition);
+    }
+    .about-highlight:hover { border-color: var(--accent); }
+    .about-highlight-icon {
+      font-size: 1.4rem;
+      margin-bottom: .5rem;
+    }
+    .about-highlight-title {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .about-highlight-desc {
+      font-size: .8rem;
+      color: var(--text-light);
+      margin-top: .2rem;
+    }
+
+    /* ============================
+       SERVIZI
+    ============================ */
+    #servizi {
+      padding: 6rem 0;
+      background: var(--gray-50);
+    }
+    .servizi-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    .servizi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.75rem;
+      border: 1px solid var(--gray-100);
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, var(--navy), var(--blue-mid));
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      font-size: 1.4rem;
+    }
+    .service-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: .6rem;
+    }
+    .service-desc {
+      font-size: .82rem;
+      color: var(--text-light);
+      line-height: 1.65;
+    }
+
+    /* ============================
+       VANTAGGI
+    ============================ */
+    #vantaggi {
+      padding: 6rem 0;
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+    }
+    .vantaggi-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 80% 50%, rgba(200,169,110,.06) 0%, transparent 60%);
+    }
+    .vantaggi-inner {
+      position: relative;
+      z-index: 1;
+    }
+    .vantaggi-header { text-align: center; margin-bottom: 3.5rem; }
+    .vantaggi-header .section-title { color: var(--white); }
+    .vantaggi-header .section-subtitle {
+      color: rgba(255,255,255,.6);
+      margin-inline: auto;
+    }
+    .vantaggi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .vantaggio-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: all var(--transition);
+    }
+    .vantaggio-card:hover {
+      background: rgba(255,255,255,.07);
+      border-color: rgba(200,169,110,.3);
+      transform: translateY(-3px);
+    }
+    .vantaggio-number {
+      font-family: var(--font-serif);
+      font-size: 3rem;
+      font-weight: 700;
+      color: rgba(200,169,110,.2);
+      line-height: 1;
+      margin-bottom: .75rem;
+    }
+    .vantaggio-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: .5rem;
+    }
+    .vantaggio-desc {
+      font-size: .85rem;
+      color: rgba(255,255,255,.55);
+      line-height: 1.65;
+    }
+
+    /* ============================
+       AREA CLIENTI
+    ============================ */
+    #area-clienti {
+      padding: 6rem 0;
+      background: var(--white);
+    }
+    .area-clienti-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .area-clienti-text { order: 1; }
+    .area-clienti-card { order: 2; }
+    .client-portal-card {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue-mid) 100%);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-xl);
+    }
+    .portal-header {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+    .portal-logo {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .portal-dot {
+      width: 8px; height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      margin-left: auto;
+    }
+    .portal-status {
+      font-size: .7rem;
+      color: rgba(255,255,255,.5);
+    }
+    .portal-features {
+      display: flex;
+      flex-direction: column;
+      gap: .85rem;
+    }
+    .portal-feature {
+      display: flex;
+      align-items: center;
+      gap: .85rem;
+      background: rgba(255,255,255,.06);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      border: 1px solid rgba(255,255,255,.06);
+      transition: all var(--transition);
+    }
+    .portal-feature:hover {
+      background: rgba(200,169,110,.12);
+      border-color: rgba(200,169,110,.2);
+    }
+    .portal-feature-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .portal-feature-text {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+    .portal-feature-sub {
+      font-size: .75rem;
+      color: rgba(255,255,255,.45);
+      margin-top: .1rem;
+    }
+    .portal-cta {
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,.1);
+      text-align: center;
+    }
+    .portal-cta .btn {
+      width: 100%;
+      justify-content: center;
+    }
+    .client-features-list {
+      display: flex;
+      flex-direction: column;
+      gap: .85rem;
+      margin: 1.75rem 0;
+    }
+    .client-feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .85rem;
+    }
+    .client-feature-check {
+      width: 22px;
+      height: 22px;
+      background: rgba(200,169,110,.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: .15rem;
+      font-size: .75rem;
+      color: var(--accent);
+    }
+    .client-feature-text {
+      font-size: .92rem;
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+    .client-feature-text strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ============================
+       FAQ
+    ============================ */
+    #faq {
+      padding: 6rem 0;
+      background: var(--white);
+    }
+    .faq-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 5rem;
+      align-items: flex-start;
+    }
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
+    .faq-item {
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: box-shadow var(--transition);
+    }
+    .faq-item.open { box-shadow: var(--shadow-md); border-color: var(--accent); }
+    .faq-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      user-select: none;
+      gap: 1rem;
+    }
+    .faq-question-text {
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .faq-item.open .faq-question-text { color: var(--accent-hover); }
+    .faq-chevron {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--gray-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all var(--transition);
+      font-size: .7rem;
+    }
+    .faq-item.open .faq-chevron {
+      background: var(--accent);
+      color: var(--navy);
+      transform: rotate(180deg);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease, padding .35s ease;
+    }
+    .faq-answer-inner {
+      padding: 0 1.5rem 1.25rem;
+      font-size: .88rem;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-answer { max-height: 200px; }
+
+    /* ============================
+       CONTATTI
+    ============================ */
+    #contatti {
+      padding: 6rem 0;
+      background: var(--gray-50);
+    }
+    .contatti-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .contatti-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 3rem;
+    }
+    .contact-form-wrap {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-md);
+    }
+    .contact-form-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 1.5rem;
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-label {
+      display: block;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: .4rem;
+      letter-spacing: .02em;
+    }
+    .form-input,
+    .form-textarea,
+    .form-select {
+      width: 100%;
+      padding: .85rem 1.1rem;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      font-size: .9rem;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--white);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(200,169,110,.15);
+    }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-submit {
+      width: 100%;
+      justify-content: center;
+      margin-top: .5rem;
+      padding: .95rem 1.75rem;
+      font-size: .95rem;
+    }
+    .contact-info-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .contact-info-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      border: 1px solid var(--gray-100);
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: all var(--transition);
+    }
+    .contact-info-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--accent);
+    }
+    .contact-info-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--navy), var(--blue-mid));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+    .contact-info-label {
+      font-size: .75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--gray-400);
+      margin-bottom: .2rem;
+    }
+    .contact-info-value {
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .contact-info-value a {
+      transition: color var(--transition);
+    }
+    .contact-info-value a:hover { color: var(--accent); }
+    .map-placeholder {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      height: 200px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue-mid) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,.5);
+      font-size: .85rem;
+      text-align: center;
+      border: 1px solid var(--gray-100);
+    }
+
+    /* ============================
+       FOOTER
+    ============================ */
+    footer {
+      background: var(--navy);
+      color: var(--white);
+    }
+    .footer-main {
+      padding: 4rem 0 3rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .footer-brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: .4rem;
+    }
+    .footer-brand-tagline {
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+    .footer-brand-desc {
+      font-size: .85rem;
+      color: rgba(255,255,255,.5);
+      line-height: 1.7;
+      max-width: 300px;
+    }
+    .footer-social {
+      display: flex;
+      gap: .6rem;
+      margin-top: 1.5rem;
+    }
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      color: rgba(255,255,255,.6);
+      transition: all var(--transition);
+    }
+    .footer-social a:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--navy);
+    }
+    .footer-col-title {
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+    }
+    .footer-links a {
+      font-size: .85rem;
+      color: rgba(255,255,255,.5);
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: .85rem;
+    }
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .65rem;
+    }
+    .footer-contact-icon {
+      font-size: .9rem;
+      color: var(--accent);
+      margin-top: .1rem;
+    }
+    .footer-contact-text {
+      font-size: .82rem;
+      color: rgba(255,255,255,.55);
+      line-height: 1.5;
+    }
+    .footer-contact-text a {
+      color: rgba(255,255,255,.55);
+      transition: color var(--transition);
+    }
+    .footer-contact-text a:hover { color: var(--white); }
+    .footer-bottom {
+      padding: 1.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-copyright {
+      font-size: .78rem;
+      color: rgba(255,255,255,.35);
+    }
+    .footer-legal {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-legal a {
+      font-size: .78rem;
+      color: rgba(255,255,255,.35);
+      transition: color var(--transition);
+    }
+    .footer-legal a:hover { color: rgba(255,255,255,.7); }
+
+    /* ============================
+       SCROLL-TO-TOP
+    ============================ */
+    #scroll-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 44px;
+      height: 44px;
+      background: var(--accent);
+      color: var(--navy);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: all var(--transition);
+      z-index: 900;
+      font-size: 1rem;
+    }
+    #scroll-top.visible { opacity: 1; pointer-events: all; }
+    #scroll-top:hover { background: var(--accent-hover); transform: translateY(-2px); }
+
+    /* ============================
+       ANIMATIONS
+    ============================ */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up:nth-child(2) { transition-delay: .1s; }
+    .fade-up:nth-child(3) { transition-delay: .2s; }
+    .fade-up:nth-child(4) { transition-delay: .3s; }
+
+    /* ============================
+       RESPONSIVE
+    ============================ */
+    @media (max-width: 1024px) {
+      .servizi-grid { grid-template-columns: repeat(2, 1fr); }
+      .vantaggi-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-main { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .about-grid { gap: 3rem; }
+      .area-clienti-inner { gap: 3rem; }
+    }
+
+    @media (max-width: 768px) {
+      #hero { min-height: 100svh; }
+      .hero-title { font-size: 2.2rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-text { order: -1; padding-left: 0; }
+      .about-image-wrap { order: 1; }
+      .about-image-placeholder { height: 300px; }
+      .about-highlights { grid-template-columns: 1fr; }
+      .servizi-grid { grid-template-columns: 1fr; }
+      .vantaggi-grid { grid-template-columns: 1fr; }
+      .area-clienti-inner { grid-template-columns: 1fr; }
+      .area-clienti-text { order: 1; }
+      .area-clienti-card { order: 2; }
+      .faq-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .contatti-grid { grid-template-columns: 1fr; }
+      .footer-main { grid-template-columns: 1fr; gap: 2rem; padding-bottom: 2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .nav-links, .nav-phone { display: none; }
+      .nav-hamburger { display: flex; }
+      .form-row { grid-template-columns: 1fr; }
+      .servizi-header { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
+      .trust-inner { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========================
+     NAVBAR
+======================== -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <span class="nav-brand-name">Rocca Amministrazione</span>
+        <span class="nav-brand-tagline">Studio Condominiale Professionale</span>
+      </a>
+      <div class="nav-links">
+        <a href="#chi-siamo">Chi Siamo</a>
+        <a href="#servizi">Servizi</a>
+        <a href="#vantaggi">Vantaggi</a>
+        <a href="#area-clienti">Area Clienti</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contatti">Contatti</a>
+      </div>
+      <div class="nav-cta">
+        <span class="nav-phone">+39 338 374 2204</span>
+        <a href="#contatti" class="btn btn-primary" style="padding: .6rem 1.25rem; font-size: .82rem;">Richiedi consulenza</a>
+      </div>
+      <button class="nav-hamburger" id="menuToggle" aria-label="Apri menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="menuClose" aria-label="Chiudi menu">✕</button>
+  <a href="#chi-siamo" class="mobile-link">Chi Siamo</a>
+  <a href="#servizi" class="mobile-link">Servizi</a>
+  <a href="#vantaggi" class="mobile-link">Vantaggi</a>
+  <a href="#area-clienti" class="mobile-link">Area Clienti</a>
+  <a href="#faq" class="mobile-link">FAQ</a>
+  <a href="#contatti" class="mobile-link">Contatti</a>
+  <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,.1);">
+    <p style="font-size:.85rem; color: rgba(255,255,255,.5); margin-bottom: .5rem;">Chiamaci subito</p>
+    <a href="tel:+393383742204" style="font-size: 1.2rem; font-weight: 700; color: var(--accent);">+39 338 374 2204</a>
+  </div>
+</div>
+
+<!-- ========================
+     HERO
+======================== -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+
+  <!-- SVG building silhouette -->
+  <svg class="hero-illustration" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="50" y="150" width="120" height="350" fill="white"/>
+    <rect x="70" y="170" width="20" height="25" fill="#0d1b2a"/>
+    <rect x="100" y="170" width="20" height="25" fill="#0d1b2a"/>
+    <rect x="130" y="170" width="20" height="25" fill="#0d1b2a"/>
+    <rect x="70" y="215" width="20" height="25" fill="#0d1b2a"/>
+    <rect x="100" y="215" width="20" height="25" fill="#0d1b2a"/>
+    <rect x="130" y="215" width="20" height="25" fill="#0d1b2a"/>
+    <rect x="70" y="260" width="20" height="25" fill="#0d1b2a"/>
+    <rect x="100" y="260" width="20" height="25" fill="#0d1b2a"/>
+    <rect x="130" y="260" width="20" height="25" fill="#0d1b2a"/>
+    <rect x="90" y="400" width="40" height="100" fill="#0d1b2a"/>
+    <rect x="220" y="80" width="160" height="420" fill="white"/>
+    <rect x="240" y="100" width="25" height="30" fill="#0d1b2a"/>
+    <rect x="275" y="100" width="25" height="30" fill="#0d1b2a"/>
+    <rect x="310" y="100" width="25" height="30" fill="#0d1b2a"/>
+    <rect x="345" y="100" width="25" height="30" fill="#0d1b2a"/>
+    <rect x="240" y="150" width="25" height="30" fill="#0d1b2a"/>
+    <rect x="275" y="150" width="25" height="30" fill="#0d1b2a"/>
+    <rect x="310" y="150" width="25" height="30" fill="#0d1b2a"/>
+    <rect x="345" y="150" width="25" height="30" fill="#0d1b2a"/>
+    <rect x="240" y="200" width="25" height="30" fill="#0d1b2a"/>
+    <rect x="275" y="200" width="25" height="30" fill="#0d1b2a"/>
+    <rect x="310" y="200" width="25" height="30" fill="#0d1b2a"/>
+    <rect x="345" y="200" width="25" height="30" fill="#0d1b2a"/>
+    <rect x="240" y="250" width="25" height="30" fill="#0d1b2a"/>
+    <rect x="275" y="250" width="25" height="30" fill="#0d1b2a"/>
+    <rect x="310" y="250" width="25" height="30" fill="#0d1b2a"/>
+    <rect x="345" y="250" width="25" height="30" fill="#0d1b2a"/>
+    <rect x="270" y="400" width="60" height="100" fill="#0d1b2a"/>
+    <rect x="430" y="30" width="200" height="470" fill="white"/>
+    <rect x="450" y="55" width="30" height="35" fill="#0d1b2a"/>
+    <rect x="490" y="55" width="30" height="35" fill="#0d1b2a"/>
+    <rect x="530" y="55" width="30" height="35" fill="#0d1b2a"/>
+    <rect x="570" y="55" width="30" height="35" fill="#0d1b2a"/>
+    <rect x="450" y="110" width="30" height="35" fill="#0d1b2a"/>
+    <rect x="490" y="110" width="30" height="35" fill="#0d1b2a"/>
+    <rect x="530" y="110" width="30" height="35" fill="#0d1b2a"/>
+    <rect x="570" y="110" width="30" height="35" fill="#0d1b2a"/>
+    <rect x="450" y="165" width="30" height="35" fill="#0d1b2a"/>
+    <rect x="490" y="165" width="30" height="35" fill="#0d1b2a"/>
+    <rect x="530" y="165" width="30" height="35" fill="#0d1b2a"/>
+    <rect x="570" y="165" width="30" height="35" fill="#0d1b2a"/>
+    <rect x="450" y="220" width="30" height="35" fill="#0d1b2a"/>
+    <rect x="490" y="220" width="30" height="35" fill="#0d1b2a"/>
+    <rect x="530" y="220" width="30" height="35" fill="#0d1b2a"/>
+    <rect x="570" y="220" width="30" height="35" fill="#0d1b2a"/>
+    <rect x="490" y="400" width="70" height="100" fill="#0d1b2a"/>
+    <rect x="680" y="120" width="100" height="380" fill="white"/>
+    <rect x="696" y="140" width="18" height="22" fill="#0d1b2a"/>
+    <rect x="724" y="140" width="18" height="22" fill="#0d1b2a"/>
+    <rect x="752" y="140" width="18" height="22" fill="#0d1b2a"/>
+    <rect x="696" y="180" width="18" height="22" fill="#0d1b2a"/>
+    <rect x="724" y="180" width="18" height="22" fill="#0d1b2a"/>
+    <rect x="752" y="180" width="18" height="22" fill="#0d1b2a"/>
+    <rect x="696" y="220" width="18" height="22" fill="#0d1b2a"/>
+    <rect x="724" y="220" width="18" height="22" fill="#0d1b2a"/>
+    <rect x="752" y="220" width="18" height="22" fill="#0d1b2a"/>
+    <rect x="716" y="400" width="30" height="100" fill="#0d1b2a"/>
+    <rect x="0" y="490" width="800" height="10" fill="white" opacity="0.3"/>
+  </svg>
+
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <span>Studio Professionale – Pier-Luigi Rocca</span>
+      </div>
+      <h1 class="hero-title">
+        La tua proprietà,<br>
+        gestita con <em>cura</em><br>
+        e <em>precisione</em>
+      </h1>
+      <p class="hero-subtitle">
+        Rocca Amministrazione è lo studio condominiale professionale che trasforma la gestione del tuo condominio in un'esperienza trasparente, digitale e senza pensieri.
+      </p>
+      <div class="hero-actions">
+        <a href="#contatti" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Richiedi una consulenza
+        </a>
+        <a href="tel:+393383742204" class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.1 6.1l.9-.9a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"></path></svg>
+          +39 338 374 2204
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <div class="hero-scroll-wheel">
+      <div class="hero-scroll-dot"></div>
+    </div>
+    <span>Scopri</span>
+  </div>
+</section>
+
+<!-- ========================
+     TRUST BAR
+======================== -->
+<div id="trust-bar">
+  <div class="container">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <div class="trust-icon">🏛️</div>
+        <span>Amministratore Certificato</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">📋</div>
+        <span>Iscritto ANACI</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🔒</div>
+        <span>Gestione Dati Conforme GDPR</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">💻</div>
+        <span>Piattaforma Digitale Dedicata</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">📞</div>
+        <span>Reperibilità H24</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================
+     CHI SIAMO
+======================== -->
+<section id="chi-siamo">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-wrap fade-up">
+        <div class="about-image-placeholder">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="8" y="20" width="64" height="52" rx="2" stroke="white" stroke-width="2"/>
+            <rect x="16" y="28" width="12" height="14" rx="1" fill="white" opacity="0.4"/>
+            <rect x="34" y="28" width="12" height="14" rx="1" fill="white" opacity="0.4"/>
+            <rect x="52" y="28" width="12" height="14" rx="1" fill="white" opacity="0.4"/>
+            <rect x="16" y="50" width="12" height="14" rx="1" fill="white" opacity="0.4"/>
+            <rect x="34" y="50" width="12" height="14" rx="1" fill="white" opacity="0.4"/>
+            <rect x="52" y="50" width="12" height="14" rx="1" fill="white" opacity="0.4"/>
+            <path d="M28 72V80M52 72V80" stroke="white" stroke-width="2" opacity="0.4"/>
+            <path d="M4 20L40 4L76 20" stroke="white" stroke-width="2" opacity="0.6"/>
+          </svg>
+          <span style="font-size: .8rem; padding: 0 2rem; text-align: center;">Edificio moderno – immagine rappresentativa</span>
+        </div>
+      </div>
+      <div class="about-text fade-up">
+        <span class="section-label">Chi Siamo</span>
+        <h2 class="section-title">Professionalità al<br>servizio del tuo<br>condominio</h2>
+        <p class="section-subtitle">
+          Rocca Amministrazione è uno studio professionale fondato da <strong>Pier-Luigi Rocca</strong>, amministratore di condominio con solida esperienza nel settore immobiliare e condominiale.
+        </p>
+        <p style="font-size: .92rem; color: var(--text-light); margin-top: 1rem; line-height: 1.7;">
+          Offriamo una gestione completa, trasparente e digitale di ogni aspetto della vita condominiale: dalla contabilità alla manutenzione, dalle assemblee alle pratiche burocratiche. Ogni condominio è per noi una comunità da tutelare con cura, attenzione e massima professionalità.
+        </p>
+        <div class="about-highlights">
+          <div class="about-highlight fade-up">
+            <div class="about-highlight-icon">🎯</div>
+            <div class="about-highlight-title">Gestione Mirata</div>
+            <div class="about-highlight-desc">Soluzioni personalizzate per ogni condominio</div>
+          </div>
+          <div class="about-highlight fade-up">
+            <div class="about-highlight-icon">📊</div>
+            <div class="about-highlight-title">Trasparenza Totale</div>
+            <div class="about-highlight-desc">Rendiconti chiari e sempre verificabili</div>
+          </div>
+          <div class="about-highlight fade-up">
+            <div class="about-highlight-icon">⚡</div>
+            <div class="about-highlight-title">Intervento Rapido</div>
+            <div class="about-highlight-desc">Risposta entro 24 ore per ogni urgenza</div>
+          </div>
+          <div class="about-highlight fade-up">
+            <div class="about-highlight-icon">🌐</div>
+            <div class="about-highlight-title">Digitale al 100%</div>
+            <div class="about-highlight-desc">Documenti e comunicazioni sempre online</div>
+          </div>
+        </div>
+        <div style="margin-top: 2rem;">
+          <a href="#contatti" class="btn btn-ghost">
+            Parla con noi
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================
+     SERVIZI
+======================== -->
+<section id="servizi">
+  <div class="container">
+    <div class="servizi-header">
+      <div>
+        <span class="section-label">I Nostri Servizi</span>
+        <h2 class="section-title">Tutto ciò di cui<br>il tuo condominio ha bisogno</h2>
+        <p class="section-subtitle">Una gamma completa di servizi professionali per una gestione condominiale senza preoccupazioni.</p>
+      </div>
+    </div>
+    <div class="servizi-grid">
+      <div class="service-card fade-up">
+        <div class="service-icon">🏢</div>
+        <div class="service-title">Amministrazione Condominiale</div>
+        <div class="service-desc">Gestione completa dell'amministrazione ordinaria e straordinaria del condominio, nel pieno rispetto della normativa vigente.</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">📈</div>
+        <div class="service-title">Gestione Contabile</div>
+        <div class="service-desc">Rendiconti annuali trasparenti, bilanci preventivi e consuntivi, gestione fondi cassa e riscossione quote condominiali.</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🗓️</div>
+        <div class="service-title">Gestione Assemblee</div>
+        <div class="service-desc">Convocazione, organizzazione e verbalizzazione delle assemblee ordinarie e straordinarie in modo professionale ed efficiente.</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🔧</div>
+        <div class="service-title">Manutenzioni</div>
+        <div class="service-desc">Coordinamento degli interventi di manutenzione ordinaria e straordinaria con ditte qualificate e prezzi verificati.</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">📄</div>
+        <div class="service-title">Pratiche Burocratiche</div>
+        <div class="service-desc">Gestione completa di tutte le pratiche amministrative, assicurazioni condominiali, DURC, certificazioni e conformità normative.</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🛡️</div>
+        <div class="service-title">Supporto Legale</div>
+        <div class="service-desc">Consulenza e supporto per la risoluzione di controversie condominiali, recupero crediti e contenziosi con fornitori.</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">💾</div>
+        <div class="service-title">Gestione Documentale Digitale</div>
+        <div class="service-desc">Archivio digitale di tutti i documenti condominiali, accessibile online in qualsiasi momento da tutti i condomini autorizzati.</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🎓</div>
+        <div class="service-title">Supporto Tecnico</div>
+        <div class="service-desc">Consulenza tecnica per lavori straordinari, superbonus, certificazioni energetiche e aggiornamenti normativi.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================
+     VANTAGGI
+======================== -->
+<section id="vantaggi">
+  <div class="vantaggi-bg"></div>
+  <div class="container vantaggi-inner">
+    <div class="vantaggi-header">
+      <span class="section-label">Perché Sceglierci</span>
+      <h2 class="section-title">I vantaggi di affidarsi<br>a Rocca Amministrazione</h2>
+      <p class="section-subtitle">Ogni aspetto del nostro lavoro è orientato alla soddisfazione e alla tranquillità dei nostri clienti.</p>
+    </div>
+    <div class="vantaggi-grid">
+      <div class="vantaggio-card fade-up">
+        <div class="vantaggio-number">01</div>
+        <div class="vantaggio-title">Sempre Reperibili</div>
+        <div class="vantaggio-desc">Disponibilità continua per ogni esigenza urgente. Un amministratore reale risponde sempre entro poche ore, senza centralini o chatbot.</div>
+      </div>
+      <div class="vantaggio-card fade-up">
+        <div class="vantaggio-number">02</div>
+        <div class="vantaggio-title">Interventi Rapidi</div>
+        <div class="vantaggio-desc">Rete di tecnici e fornitori qualificati sempre pronti ad intervenire. Le urgenze vengono gestite con massima priorità e tempestività.</div>
+      </div>
+      <div class="vantaggio-card fade-up">
+        <div class="vantaggio-number">03</div>
+        <div class="vantaggio-title">Gestione Digitale</div>
+        <div class="vantaggio-desc">Portale online dedicato per accedere a documenti, verbali, rendiconti e comunicazioni. Il condominio in tasca, sempre con te.</div>
+      </div>
+      <div class="vantaggio-card fade-up">
+        <div class="vantaggio-number">04</div>
+        <div class="vantaggio-title">Trasparenza Totale</div>
+        <div class="vantaggio-desc">Ogni euro gestito è tracciato e rendicontato. Nessuna spesa nascosta, nessuna sorpresa. Accesso ai conti sempre disponibile.</div>
+      </div>
+      <div class="vantaggio-card fade-up">
+        <div class="vantaggio-number">05</div>
+        <div class="vantaggio-title">Supporto Continuo</div>
+        <div class="vantaggio-desc">Non solo adempimenti formali. Siamo un punto di riferimento costante per condomini, consiglio e fornitori durante tutto l'anno.</div>
+      </div>
+      <div class="vantaggio-card fade-up">
+        <div class="vantaggio-number">06</div>
+        <div class="vantaggio-title">Esperienza Certificata</div>
+        <div class="vantaggio-desc">Formazione continua e aggiornamento normativo costante per garantire una gestione sempre conforme, qualificata e al passo con le evoluzioni del settore condominiale.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================
+     AREA CLIENTI
+======================== -->
+<section id="area-clienti">
+  <div class="container">
+    <div class="area-clienti-inner">
+      <div class="area-clienti-text fade-up">
+        <span class="section-label">Area Clienti</span>
+        <h2 class="section-title">Il tuo condominio<br>sempre a portata<br>di clic</h2>
+        <p class="section-subtitle">
+          Con la nostra piattaforma digitale dedicata, i condomini possono accedere in qualsiasi momento a tutti i documenti, comunicazioni e servizi del loro edificio.
+        </p>
+        <div class="client-features-list">
+          <div class="client-feature-item">
+            <div class="client-feature-check">✓</div>
+            <div class="client-feature-text"><strong>Accesso documenti</strong> — Verbali assemblee, rendiconti, bilanci e contratti sempre disponibili online</div>
+          </div>
+          <div class="client-feature-item">
+            <div class="client-feature-check">✓</div>
+            <div class="client-feature-text"><strong>Comunicazioni dirette</strong> — Messaggistica con l'amministratore e notifiche in tempo reale</div>
+          </div>
+          <div class="client-feature-item">
+            <div class="client-feature-check">✓</div>
+            <div class="client-feature-text"><strong>Pagamenti tracciati</strong> — Storico dei versamenti e riepilogo dei saldi individuali</div>
+          </div>
+          <div class="client-feature-item">
+            <div class="client-feature-check">✓</div>
+            <div class="client-feature-text"><strong>Richieste assistenza</strong> — Segnalazione guasti e richieste di intervento con tracciamento stato</div>
+          </div>
+          <div class="client-feature-item">
+            <div class="client-feature-check">✓</div>
+            <div class="client-feature-text"><strong>Assemblee virtuali</strong> — Possibilità di partecipazione e votazione online alle assemblee condominiali</div>
+          </div>
+        </div>
+        <a href="#contatti" class="btn btn-primary" style="margin-top: .5rem;">
+          Attiva l'accesso al portale
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="area-clienti-card fade-up">
+        <div class="client-portal-card">
+          <div class="portal-header">
+            <div class="portal-logo">Portale Condomini</div>
+            <div style="margin-left: auto; display: flex; align-items: center; gap: .4rem;">
+              <div class="portal-dot"></div>
+              <span class="portal-status">Online</span>
+            </div>
+          </div>
+          <div class="portal-features">
+            <div class="portal-feature">
+              <div class="portal-feature-icon">📁</div>
+              <div>
+                <div class="portal-feature-text">Documenti Condominiali</div>
+                <div class="portal-feature-sub">12 nuovi file disponibili</div>
+              </div>
+            </div>
+            <div class="portal-feature">
+              <div class="portal-feature-icon">💬</div>
+              <div>
+                <div class="portal-feature-text">Messaggi e Comunicazioni</div>
+                <div class="portal-feature-sub">3 messaggi non letti</div>
+              </div>
+            </div>
+            <div class="portal-feature">
+              <div class="portal-feature-icon">💳</div>
+              <div>
+                <div class="portal-feature-text">Quote e Pagamenti</div>
+                <div class="portal-feature-sub">Situazione contabile aggiornata</div>
+              </div>
+            </div>
+            <div class="portal-feature">
+              <div class="portal-feature-icon">🔔</div>
+              <div>
+                <div class="portal-feature-text">Richieste di Assistenza</div>
+                <div class="portal-feature-sub">1 intervento in corso</div>
+              </div>
+            </div>
+            <div class="portal-feature">
+              <div class="portal-feature-icon">📅</div>
+              <div>
+                <div class="portal-feature-text">Prossima Assemblea</div>
+                <div class="portal-feature-sub">15 Giugno 2026 – ore 20:30</div>
+              </div>
+            </div>
+          </div>
+          <div class="portal-cta">
+            <a href="#contatti" class="btn btn-primary" style="background: var(--accent); color: var(--navy);">
+              Accedi al Portale
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================
+     FAQ
+======================== -->
+<section id="faq">
+  <div class="container">
+    <div class="faq-inner">
+      <div class="fade-up">
+        <span class="section-label">FAQ</span>
+        <h2 class="section-title">Domande frequenti</h2>
+        <p class="section-subtitle">Trova le risposte alle domande più comuni sulla gestione condominiale e sui nostri servizi.</p>
+        <div style="margin-top: 2rem;">
+          <p style="font-size: .9rem; color: var(--text-light); margin-bottom: 1rem;">Non hai trovato la risposta che cercavi?</p>
+          <a href="#contatti" class="btn btn-ghost">
+            Contattaci direttamente
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="faq-list fade-up">
+        <div class="faq-item">
+          <div class="faq-question" tabindex="0" role="button" aria-expanded="false">
+            <span class="faq-question-text">Come posso cambiare amministratore di condominio?</span>
+            <div class="faq-chevron">▾</div>
+          </div>
+          <div class="faq-answer" aria-hidden="true">
+            <div class="faq-answer-inner">
+              Il cambio di amministratore si delibera in assemblea con voto della maggioranza degli intervenuti che rappresentino almeno la metà del valore dell'edificio. Noi gestiamo l'intero processo di transizione in modo fluido e senza interruzioni di servizio.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" tabindex="0" role="button" aria-expanded="false">
+            <span class="faq-question-text">Quali sono i costi dell'amministrazione condominiale?</span>
+            <div class="faq-chevron">▾</div>
+          </div>
+          <div class="faq-answer" aria-hidden="true">
+            <div class="faq-answer-inner">
+              Il compenso viene definito in base alle caratteristiche del condominio (numero di unità, complessità, servizi richiesti). Offriamo preventivi personalizzati e trasparenti, senza costi nascosti. Contattateci per una proposta su misura.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" tabindex="0" role="button" aria-expanded="false">
+            <span class="faq-question-text">Come funziona il portale digitale per i condomini?</span>
+            <div class="faq-chevron">▾</div>
+          </div>
+          <div class="faq-answer" aria-hidden="true">
+            <div class="faq-answer-inner">
+              Il portale è accessibile da browser e smartphone. Ogni condomino riceve credenziali personali e può consultare documenti, verbali, rendiconti, contattare l'amministratore e verificare i propri pagamenti in qualsiasi momento.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" tabindex="0" role="button" aria-expanded="false">
+            <span class="faq-question-text">Con quale frequenza si tengono le assemblee?</span>
+            <div class="faq-chevron">▾</div>
+          </div>
+          <div class="faq-answer" aria-hidden="true">
+            <div class="faq-answer-inner">
+              Per legge è obbligatoria almeno un'assemblea ordinaria annuale per l'approvazione del rendiconto. Assemblee straordinarie possono essere convocate quando necessario su richiesta dell'amministratore o di almeno due condomini che rappresentino un sesto del valore dell'edificio.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" tabindex="0" role="button" aria-expanded="false">
+            <span class="faq-question-text">Come vengono gestite le urgenze e i guasti?</span>
+            <div class="faq-chevron">▾</div>
+          </div>
+          <div class="faq-answer" aria-hidden="true">
+            <div class="faq-answer-inner">
+              In caso di urgenza, i condomini possono contattarci telefonicamente o tramite il portale. Abbiamo una rete di tecnici di fiducia pronti ad intervenire tempestivamente. Le emergenze (es. allagamenti, guasti agli impianti) vengono gestite in via prioritaria anche fuori orario.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" tabindex="0" role="button" aria-expanded="false">
+            <span class="faq-question-text">L'amministratore deve essere obbligatoriamente nominato?</span>
+            <div class="faq-chevron">▾</div>
+          </div>
+          <div class="faq-answer" aria-hidden="true">
+            <div class="faq-answer-inner">
+              Sì, la nomina è obbligatoria quando i condomini sono più di otto (art. 1129 c.c.). Anche nei condomini più piccoli, avere un amministratore professionale garantisce una gestione ordinata, trasparente e senza conflitti tra condomini.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================
+     CONTATTI
+======================== -->
+<section id="contatti">
+  <div class="container">
+    <div class="contatti-header">
+      <span class="section-label">Contatti</span>
+      <h2 class="section-title">Parliamo del tuo condominio</h2>
+      <p class="section-subtitle" style="margin-inline: auto;">Compila il modulo o contattaci direttamente. Ti risponderemo entro 24 ore.</p>
+    </div>
+    <div class="contatti-grid">
+      <div class="contact-form-wrap fade-up">
+        <div class="contact-form-title">Richiedi una consulenza gratuita</div>
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="nome">Nome *</label>
+              <input class="form-input" type="text" id="nome" name="nome" placeholder="Mario" required autocomplete="given-name">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cognome">Cognome *</label>
+              <input class="form-input" type="text" id="cognome" name="cognome" placeholder="Rossi" required autocomplete="family-name">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="email">Email *</label>
+              <input class="form-input" type="email" id="email" name="email" placeholder="mario.rossi@email.it" required autocomplete="email">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="telefono">Telefono</label>
+              <input class="form-input" type="tel" id="telefono" name="telefono" placeholder="+39 000 000 0000" autocomplete="tel">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="oggetto">Oggetto</label>
+            <select class="form-select" id="oggetto" name="oggetto">
+              <option value="">Seleziona un argomento</option>
+              <option value="nuovo-incarico">Nuovo incarico di amministrazione</option>
+              <option value="cambio-amministratore">Cambio amministratore</option>
+              <option value="consulenza">Consulenza generica</option>
+              <option value="preventivo">Richiesta preventivo</option>
+              <option value="altro">Altro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="messaggio">Messaggio *</label>
+            <textarea class="form-textarea" id="messaggio" name="messaggio" placeholder="Descrivi la tua situazione condominiale o il servizio di cui hai bisogno..." required></textarea>
+          </div>
+          <div style="font-size: .75rem; color: var(--gray-400); margin-bottom: 1rem;">
+            * Campi obbligatori. I dati saranno trattati ai sensi del Reg. UE 2016/679 (GDPR).
+          </div>
+          <button type="submit" class="btn btn-primary form-submit">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            Invia richiesta
+          </button>
+        </form>
+      </div>
+      <div class="contact-info-wrap fade-up">
+        <div class="contact-info-card">
+          <div class="contact-info-icon">📞</div>
+          <div>
+            <div class="contact-info-label">Telefono</div>
+            <div class="contact-info-value"><a href="tel:+393383742204">+39 338 374 2204</a></div>
+          </div>
+        </div>
+        <div class="contact-info-card">
+          <div class="contact-info-icon">✉️</div>
+          <div>
+            <div class="contact-info-label">Email</div>
+            <div class="contact-info-value"><a href="mailto:pluigi.rocca@yahoo.com">pluigi.rocca@yahoo.com</a></div>
+          </div>
+        </div>
+        <div class="contact-info-card">
+          <div class="contact-info-icon">🌐</div>
+          <div>
+            <div class="contact-info-label">Sito Web</div>
+            <div class="contact-info-value">roccaamministrazioni.it</div>
+          </div>
+        </div>
+        <div class="contact-info-card">
+          <div class="contact-info-icon">🕐</div>
+          <div>
+            <div class="contact-info-label">Orari di ricevimento</div>
+            <div class="contact-info-value" style="font-size: .85rem; font-weight: 400; color: var(--text-light);">
+              Lun–Ven: 9:00–13:00 / 15:00–18:30<br>
+              Urgenze: sempre reperibile
+            </div>
+          </div>
+        </div>
+        <div class="map-placeholder">
+          <div>
+            <div style="font-size: 2rem; margin-bottom: .5rem;">📍</div>
+            <div>Area operativa: Bologna e provincia</div>
+            <div style="margin-top: .25rem; font-size: .75rem; opacity: .6;">Sopralluoghi su appuntamento</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================
+     FOOTER
+======================== -->
+<footer>
+  <div class="container">
+    <div class="footer-main">
+      <div>
+        <div class="footer-brand-name">Rocca Amministrazione</div>
+        <div class="footer-brand-tagline">Studio Condominiale Professionale</div>
+        <p class="footer-brand-desc">
+          Studio professionale di amministrazione condominiale fondato da Pier-Luigi Rocca. Gestione trasparente, efficiente e digitale del tuo condominio.
+        </p>
+        <div class="footer-social">
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="WhatsApp">w</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Servizi</div>
+        <div class="footer-links">
+          <a href="#servizi">Amministrazione Condominiale</a>
+          <a href="#servizi">Gestione Contabile</a>
+          <a href="#servizi">Assemblee Condominiali</a>
+          <a href="#servizi">Manutenzioni</a>
+          <a href="#servizi">Supporto Legale</a>
+          <a href="#servizi">Gestione Digitale</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Studio</div>
+        <div class="footer-links">
+          <a href="#chi-siamo">Chi Siamo</a>
+          <a href="#vantaggi">Perché Noi</a>
+          <a href="#area-clienti">Area Clienti</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contatti">Contatti</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Contatti</div>
+        <div class="footer-contact-list">
+          <div class="footer-contact-item">
+            <span class="footer-contact-icon">📞</span>
+            <div class="footer-contact-text">
+              <a href="tel:+393383742204">+39 338 374 2204</a>
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-icon">✉️</span>
+            <div class="footer-contact-text">
+              <a href="mailto:pluigi.rocca@yahoo.com">pluigi.rocca@yahoo.com</a>
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-icon">🌐</span>
+            <div class="footer-contact-text">roccaamministrazioni.it</div>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-icon">🕐</span>
+            <div class="footer-contact-text">Lun–Ven 9:00–18:30<br>Urgenze: sempre reperibile</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copyright">
+        © 2026 Rocca Amministrazione – Pier-Luigi Rocca. Tutti i diritti riservati.
+      </div>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Cookie Policy</a>
+        <a href="#">Note Legali</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Scroll to top -->
+<button id="scroll-top" aria-label="Torna all'inizio" title="Torna su">↑</button>
+
+<!-- ========================
+     JAVASCRIPT
+======================== -->
+<script>
+(function() {
+  'use strict';
+
+  /* --- Navbar scroll --- */
+  const navbar = document.getElementById('navbar');
+  const scrollTopBtn = document.getElementById('scroll-top');
+
+  window.addEventListener('scroll', function() {
+    const y = window.scrollY;
+    navbar.classList.toggle('scrolled', y > 50);
+    scrollTopBtn.classList.toggle('visible', y > 400);
+  }, { passive: true });
+
+  scrollTopBtn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* --- Mobile menu --- */
+  const menuToggle = document.getElementById('menuToggle');
+  const menuClose  = document.getElementById('menuClose');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  menuToggle.addEventListener('click', openMenu);
+  menuClose.addEventListener('click', closeMenu);
+
+  document.querySelectorAll('.mobile-link').forEach(function(link) {
+    link.addEventListener('click', closeMenu);
+  });
+
+  /* --- Active nav link on scroll --- */
+  const sections = document.querySelectorAll('section[id], div[id="trust-bar"]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(function(link) {
+          link.style.color = link.getAttribute('href') === '#' + id
+            ? 'var(--white)'
+            : 'rgba(255,255,255,.7)';
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(function(s) { observer.observe(s); });
+
+  /* --- Fade-up animation --- */
+  const fadeObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        fadeObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(function(el) {
+    fadeObserver.observe(el);
+  });
+
+  /* --- FAQ accordion --- */
+  document.querySelectorAll('.faq-question').forEach(function(question) {
+    question.addEventListener('click', function() {
+      const item = this.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.faq-item.open').forEach(function(openItem) {
+        openItem.classList.remove('open');
+        openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        openItem.querySelector('.faq-answer').setAttribute('aria-hidden', 'true');
+      });
+
+      // Open clicked if it was closed
+      if (!isOpen) {
+        item.classList.add('open');
+        this.setAttribute('aria-expanded', 'true');
+        item.querySelector('.faq-answer').setAttribute('aria-hidden', 'false');
+      }
+    });
+
+    question.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.click();
+      }
+    });
+  });
+
+  /* --- Smooth scroll for anchor links --- */
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const offset = 80;
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  /* --- Contact form --- */
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('[type="submit"]');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '✓ Richiesta inviata!';
+      btn.style.background = '#22c55e';
+      btn.style.color = 'white';
+      btn.disabled = true;
+      setTimeout(function() {
+        btn.innerHTML = originalText;
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.disabled = false;
+        contactForm.reset();
+      }, 3500);
+    });
+  }
+
+  /* --- Navbar on mount: make sure scrolled state is set if page loads scrolled --- */
+  if (window.scrollY > 50) navbar.classList.add('scrolled');
+
+})();
+</script>
+
+</body>
+</html>
