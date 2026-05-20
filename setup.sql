@@ -36,7 +36,7 @@ create table if not exists payments (
   description  text not null,
   amount       numeric(10,2) not null,
   due_date     date not null,
-  status       text default 'pending' check (status in ('pending', 'paid', 'overdue')),
+  status       text default 'pending' check (status in ('pending', 'paid', 'verified', 'overdue')),
   receipt_path text,
   created_at   timestamptz default now()
 );
