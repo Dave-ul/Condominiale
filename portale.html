@@ -1952,8 +1952,8 @@
     const { error } = await sb.from('requests').update({ status }).eq('id', requestId);
     if (error) {
       alert('Errore nell\'aggiornamento dello stato: ' + error.message);
-      if (activeTab === 'richieste') loadRequests();
     }
+    if (activeTab === 'richieste') loadRequests();
   };
 
   /* New Request */
