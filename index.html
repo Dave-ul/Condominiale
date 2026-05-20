@@ -1690,7 +1690,7 @@
     <div class="contatti-grid">
       <div class="contact-form-wrap fade-up">
         <div class="contact-form-title">Richiedi una consulenza gratuita</div>
-        <form id="contactForm" novalidate>
+        <form id="contactForm" action="https://formspree.io/f/mnjrpayp" method="POST" novalidate>
           <div class="form-row">
             <div class="form-group">
               <label class="form-label" for="nome">Nome *</label>
@@ -1977,24 +1977,56 @@
     });
   });
 
-  /* --- Contact form --- */
+  /* --- Contact form (Formspree) --- */
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
       e.preventDefault();
       const btn = this.querySelector('[type="submit"]');
-      const originalText = btn.innerHTML;
-      btn.innerHTML = '✓ Richiesta inviata!';
-      btn.style.background = '#22c55e';
-      btn.style.color = 'white';
+      const originalHTML = btn.innerHTML;
+      btn.innerHTML = 'Invio in corso…';
       btn.disabled = true;
-      setTimeout(function() {
-        btn.innerHTML = originalText;
-        btn.style.background = '';
-        btn.style.color = '';
-        btn.disabled = false;
-        contactForm.reset();
-      }, 3500);
+
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(function(res) {
+        if (res.ok) {
+          btn.innerHTML = '✓ Richiesta inviata!';
+          btn.style.background = '#22c55e';
+          btn.style.color = 'white';
+          contactForm.reset();
+          setTimeout(function() {
+            btn.innerHTML = originalHTML;
+            btn.style.background = '';
+            btn.style.color = '';
+            btn.disabled = false;
+          }, 4000);
+        } else {
+          btn.innerHTML = '✗ Errore, riprova';
+          btn.style.background = '#ef4444';
+          btn.style.color = 'white';
+          setTimeout(function() {
+            btn.innerHTML = originalHTML;
+            btn.style.background = '';
+            btn.style.color = '';
+            btn.disabled = false;
+          }, 3000);
+        }
+      })
+      .catch(function() {
+        btn.innerHTML = '✗ Errore di rete';
+        btn.style.background = '#ef4444';
+        btn.style.color = 'white';
+        setTimeout(function() {
+          btn.innerHTML = originalHTML;
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.disabled = false;
+        }, 3000);
+      });
     });
   }
 
