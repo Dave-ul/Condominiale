@@ -1610,7 +1610,7 @@
         </div>
         <div style="display:flex; align-items:center; justify-content:space-between; gap:.5rem;">
           <span class="badge badge-navy">${esc(docCategoryLabel(doc.category))}</span>
-          <button class="btn btn-outline btn-sm" onclick="downloadDoc('${esc(doc.file_path)}')">
+          <button class="btn btn-outline btn-sm" onclick="downloadDoc(this.dataset.path)" data-path="${esc(doc.file_path)}">
             ⬇ Scarica
           </button>
         </div>
