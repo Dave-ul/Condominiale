@@ -976,8 +976,8 @@
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label" for="reg-unit">Unità / Interno *</label>
-              <input class="form-input" type="text" id="reg-unit" placeholder="Int. 5" required>
+              <label class="form-label" for="reg-unit">Condominio *</label>
+              <input class="form-input" type="text" id="reg-unit" placeholder="Es. Condominio Via Roma 10" required>
             </div>
             <div class="form-group">
               <label class="form-label" for="reg-phone">Telefono</label>
@@ -2034,7 +2034,7 @@
               <div class="resident-info">
                 <div class="resident-name">${esc(r.full_name || r.email)}</div>
                 <div class="resident-details">
-                  ${r.unit ? 'Int. ' + esc(r.unit) + '  ·  ' : ''}${esc(r.phone || 'N/A')}
+                  ${r.unit ? esc(r.unit) + '  ·  ' : ''}${esc(r.phone || 'N/A')}
                   ${r.email ? '<br><span style="font-size:.72rem;color:var(--gray-400)">' + esc(r.email) + '</span>' : ''}
                 </div>
               </div>
