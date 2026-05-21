@@ -71,64 +71,114 @@ returns text language sql security definer stable as $$
 $$;
 
 -- PROFILES: tutti i condomini autenticati possono leggere i profili
+drop policy if exists "profiles_select" on profiles;
 create policy "profiles_select" on profiles
   for select using (auth.role() = 'authenticated');
+drop policy if exists "profiles_insert" on profiles;
 create policy "profiles_insert" on profiles
   for insert with check (auth.uid() = id);
+drop policy if exists "profiles_update" on profiles;
 create policy "profiles_update" on profiles
   for update using (auth.uid() = id or get_my_role() = 'admin');
 
 -- DOCUMENTS: tutti vedono i documenti, solo admin può caricare
+drop policy if exists "documents_select" on documents;
 create policy "documents_select" on documents
   for select using (auth.role() = 'authenticated');
+drop policy if exists "documents_insert" on documents;
 create policy "documents_insert" on documents
   for insert with check (get_my_role() = 'admin');
 
 -- PAYMENTS: condomino vede i propri, admin vede tutti
+drop policy if exists "payments_select_own" on payments;
 create policy "payments_select_own" on payments
   for select using (resident_id = auth.uid());
+drop policy if exists "payments_select_admin" on payments;
 create policy "payments_select_admin" on payments
   for select using (get_my_role() = 'admin');
+drop policy if exists "payments_insert_admin" on payments;
 create policy "payments_insert_admin" on payments
   for insert with check (get_my_role() = 'admin');
+-- Il residente può solo segnare come 'paid' un pagamento 'pending'.
+-- Il vincolo sulle colonne modificabili è imposto dal trigger più sotto.
+drop policy if exists "payments_update_resident" on payments;
 create policy "payments_update_resident" on payments
   for update using (resident_id = auth.uid() and status = 'pending')
-  with check (status = 'paid');
+  with check (resident_id = auth.uid() and status = 'paid');
+drop policy if exists "payments_update_admin" on payments;
 create policy "payments_update_admin" on payments
   for update using (get_my_role() = 'admin');
 
 -- REQUESTS: condomino vede le proprie, admin vede tutte
+drop policy if exists "requests_select_own" on requests;
 create policy "requests_select_own" on requests
   for select using (resident_id = auth.uid());
+drop policy if exists "requests_select_admin" on requests;
 create policy "requests_select_admin" on requests
   for select using (get_my_role() = 'admin');
+drop policy if exists "requests_insert" on requests;
 create policy "requests_insert" on requests
   for insert with check (auth.role() = 'authenticated' and resident_id = auth.uid());
+drop policy if exists "requests_update_admin" on requests;
 create policy "requests_update_admin" on requests
   for update using (get_my_role() = 'admin');
+
+-- ============================================================
+-- TRIGGER: i residenti possono modificare SOLO status e receipt_path.
+-- Impedisce a un condomino di alterare importo, descrizione, scadenza
+-- o riassegnare il pagamento sfruttando la policy di update.
+-- ============================================================
+create or replace function enforce_resident_payment_update()
+returns trigger language plpgsql security definer as $$
+begin
+  if get_my_role() = 'admin' then
+    return new;
+  end if;
+
+  if new.resident_id  is distinct from old.resident_id
+     or new.description is distinct from old.description
+     or new.amount      is distinct from old.amount
+     or new.due_date    is distinct from old.due_date
+     or new.created_at  is distinct from old.created_at then
+    raise exception 'I residenti possono modificare solo lo stato e la ricevuta del pagamento';
+  end if;
+
+  return new;
+end;
+$$;
+
+drop trigger if exists trg_enforce_resident_payment_update on payments;
+create trigger trg_enforce_resident_payment_update
+  before update on payments
+  for each row execute function enforce_resident_payment_update();
 
 -- ============================================================
 -- STORAGE POLICIES
 -- (i bucket 'documenti' e 'ricevute' devono già esistere)
 -- ============================================================
 
+drop policy if exists "documenti_select" on storage.objects;
 create policy "documenti_select" on storage.objects
   for select using (bucket_id = 'documenti' and auth.role() = 'authenticated');
 
+drop policy if exists "documenti_insert" on storage.objects;
 create policy "documenti_insert" on storage.objects
   for insert with check (bucket_id = 'documenti' and get_my_role() = 'admin');
 
+drop policy if exists "ricevute_insert" on storage.objects;
 create policy "ricevute_insert" on storage.objects
   for insert with check (
     bucket_id = 'ricevute' and
     (storage.foldername(name))[1] = auth.uid()::text
   );
 
+drop policy if exists "ricevute_select_admin" on storage.objects;
 create policy "ricevute_select_admin" on storage.objects
   for select using (
     bucket_id = 'ricevute' and get_my_role() = 'admin'
   );
 
+drop policy if exists "ricevute_select_own" on storage.objects;
 create policy "ricevute_select_own" on storage.objects
   for select using (
     bucket_id = 'ricevute' and
