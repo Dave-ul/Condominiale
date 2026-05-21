@@ -101,11 +101,11 @@ create policy "payments_select_admin" on payments
 drop policy if exists "payments_insert_admin" on payments;
 create policy "payments_insert_admin" on payments
   for insert with check (get_my_role() = 'admin');
--- Il residente può solo segnare come 'paid' un pagamento 'pending'.
+-- Il residente può solo segnare come 'paid' un pagamento 'pending' o 'overdue'.
 -- Il vincolo sulle colonne modificabili è imposto dal trigger più sotto.
 drop policy if exists "payments_update_resident" on payments;
 create policy "payments_update_resident" on payments
-  for update using (resident_id = auth.uid() and status = 'pending')
+  for update using (resident_id = auth.uid() and status in ('pending', 'overdue'))
   with check (resident_id = auth.uid() and status = 'paid');
 drop policy if exists "payments_update_admin" on payments;
 create policy "payments_update_admin" on payments

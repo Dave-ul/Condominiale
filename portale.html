@@ -1367,7 +1367,8 @@
     const map = {
       pending:  `<span class="badge badge-amber">In attesa</span>`,
       paid:     `<span class="badge badge-green">Pagato</span>`,
-      verified: `<span class="badge badge-blue">Verificato</span>`
+      verified: `<span class="badge badge-blue">Verificato</span>`,
+      overdue:  `<span class="badge badge-red">Scaduto</span>`
     };
     return map[status] || `<span class="badge badge-gray">${esc(status)}</span>`;
   }
@@ -1550,8 +1551,9 @@
       el.style.display = isAdmin() ? '' : 'none';
     });
 
-    // Load initial tab
-    loadTab(activeTab);
+    // Load initial tab — always reset to documenti to avoid showing
+    // stale tab panels from a previous user's session.
+    switchTab('documenti');
   }
 
   /* ==========================================
@@ -1648,8 +1650,9 @@
 
     setLoading('btn-upload-doc', true, 'Caricamento…');
 
-    const ext       = file.name.split('.').pop();
-    const filePath  = `${Date.now()}_${name.replace(/\s+/g, '_')}.${ext}`;
+    const ext       = file.name.includes('.') ? file.name.split('.').pop() : 'bin';
+    const safeName  = name.replace(/[#?&=+:@!;,'"<>[\]{}|\\%]/g, '').replace(/\s+/g, '_').replace(/_+/g, '_').slice(0, 80);
+    const filePath  = `${Date.now()}_${safeName}.${ext}`;
 
     const { error: uploadErr } = await sb.storage.from('documenti').upload(filePath, file);
     if (uploadErr) {
@@ -1748,7 +1751,7 @@
   function buildPaymentActionCell(p) {
     let html = '<div style="display:flex;gap:.4rem;flex-wrap:wrap;">';
 
-    if (!isAdmin() && p.status === 'pending') {
+    if (!isAdmin() && (p.status === 'pending' || p.status === 'overdue')) {
       html += `<button class="btn btn-sm btn-primary" onclick="openReceiptModal('${p.id}')">📎 Ricevuta</button>`;
     }
 
