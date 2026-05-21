@@ -65,9 +65,11 @@ alter table payments  enable row level security;
 alter table requests  enable row level security;
 
 -- Funzione helper per evitare ricorsione RLS
+-- set search_path = public: necessario perché security definer non erediti
+-- un search_path che non include public.
 create or replace function get_my_role()
-returns text language sql security definer stable as $$
-  select role from profiles where id = auth.uid()
+returns text language sql security definer stable set search_path = public as $$
+  select role from public.profiles where id = auth.uid()
 $$;
 
 -- PROFILES: tutti i condomini autenticati possono leggere i profili
@@ -129,7 +131,7 @@ create policy "requests_update_admin" on requests
 -- o riassegnare il pagamento sfruttando la policy di update.
 -- ============================================================
 create or replace function enforce_resident_payment_update()
-returns trigger language plpgsql security definer as $$
+returns trigger language plpgsql security definer set search_path = public as $$
 begin
   if get_my_role() = 'admin' then
     return new;
@@ -151,6 +153,61 @@ drop trigger if exists trg_enforce_resident_payment_update on payments;
 create trigger trg_enforce_resident_payment_update
   before update on payments
   for each row execute function enforce_resident_payment_update();
+
+-- ============================================================
+-- TRIGGER: creazione automatica del profilo alla registrazione.
+-- set search_path = public è obbligatorio: senza, la funzione gira sotto
+-- supabase_auth_admin (search_path senza public) e fallisce con
+-- "relation profiles does not exist" → "Database error saving new user".
+-- ============================================================
+create or replace function public.handle_new_user()
+returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  insert into public.profiles (id, full_name, email, unit, phone, role)
+  values (
+    new.id,
+    coalesce(new.raw_user_meta_data->>'full_name', new.email),
+    new.email,
+    coalesce(new.raw_user_meta_data->>'unit', ''),
+    coalesce(new.raw_user_meta_data->>'phone', ''),
+    'resident'
+  )
+  on conflict (id) do nothing;
+  return new;
+exception
+  when others then
+    return new;  -- non bloccare mai la registrazione se la creazione profilo fallisce
+end;
+$$;
+
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute function public.handle_new_user();
+
+-- ============================================================
+-- TRIGGER: impedisce a un residente di promuoversi ad admin.
+-- La policy profiles_update consente di aggiornare la propria riga,
+-- ma le RLS non sanno limitare le colonne: questo trigger blocca le
+-- modifiche al campo role da parte dei non-admin.
+-- ============================================================
+create or replace function public.enforce_profile_update()
+returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  if get_my_role() = 'admin' then
+    return new;
+  end if;
+  if new.role is distinct from old.role then
+    raise exception 'Non puoi modificare il tuo ruolo';
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists trg_enforce_profile_update on profiles;
+create trigger trg_enforce_profile_update
+  before update on profiles
+  for each row execute function public.enforce_profile_update();
 
 -- ============================================================
 -- STORAGE POLICIES

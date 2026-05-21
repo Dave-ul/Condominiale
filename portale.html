@@ -623,7 +623,8 @@
       border-radius: var(--radius-lg);
       border: 1px solid var(--gray-100);
       box-shadow: var(--shadow-sm);
-      overflow: hidden;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
     .data-table {
       width: 100%;
@@ -911,7 +912,7 @@
       .portal-nav-divider { display: none; }
       .portal-nav-info .portal-nav-role { display: none; }
       .section-header { flex-direction: column; align-items: flex-start; }
-      .data-table { font-size: .8rem; }
+      .data-table { font-size: .8rem; min-width: 560px; }
       .data-table th, .data-table td { padding: .75rem .75rem; }
     }
     @media (max-width: 540px) {
