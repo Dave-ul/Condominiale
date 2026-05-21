@@ -1488,11 +1488,15 @@
   /* ==========================================
      AUTH STATE CHANGE
   ========================================== */
-  sb.auth.onAuthStateChange(async function (event, session) {
+  sb.auth.onAuthStateChange(function (event, session) {
     if (session && session.user) {
       currentUser = session.user;
-      await loadOrCreateProfile();
-      renderPortal();
+      // Rinviato fuori dal callback: chiamare metodi supabase async qui
+      // dentro causa un deadlock con il lock interno di GoTrue.
+      setTimeout(async function () {
+        await loadOrCreateProfile();
+        renderPortal();
+      }, 0);
     } else {
       currentUser = null;
       currentProfile = null;
