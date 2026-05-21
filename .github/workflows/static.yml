@@ -34,7 +34,7 @@ jobs:
       - name: Prepare deploy folder
         run: |
           mkdir -p _site
-          cp index.html portale.html _site/
+          cp index.html portale.html CNAME _site/
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
