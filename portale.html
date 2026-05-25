@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Portale Condomini – Rocca Amministrazioni</title>
   <meta name="description" content="Area riservata ai condomini di Rocca Amministrazioni. Gestisci documenti, pagamenti e richieste di assistenza.">
   <meta name="robots" content="noindex, nofollow">
@@ -66,6 +66,7 @@
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
       min-height: 100vh;
+      min-height: 100dvh;
     }
     img { max-width: 100%; display: block; }
     a { color: inherit; text-decoration: none; }
@@ -911,16 +912,30 @@
       .admin-grid { grid-template-columns: 1fr; }
       .portal-nav-divider { display: none; }
       .portal-nav-info .portal-nav-role { display: none; }
+      .portal-brand-tagline { display: none; }
       .section-header { flex-direction: column; align-items: flex-start; }
       .data-table { font-size: .8rem; min-width: 560px; }
       .data-table th, .data-table td { padding: .75rem .75rem; }
+      .portal-content { padding-top: 1.5rem; padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px)); }
+      .doc-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+      .request-card { flex-wrap: wrap; }
     }
     @media (max-width: 540px) {
       .auth-body { padding: 1.5rem; }
-      .modal-card { max-height: 95vh; }
+      .auth-card { border-radius: var(--radius-lg); }
+      .modal-card { max-height: 95vh; border-radius: var(--radius-lg) var(--radius-lg) 0 0; align-self: flex-end; }
+      .modal-overlay { align-items: flex-end; padding: 0; }
       .modal-body { padding: 1.25rem; }
       .modal-header { padding: 1.25rem 1.25rem .9rem; }
-      .modal-footer { padding: .9rem 1.25rem 1.25rem; }
+      .modal-footer { padding: .9rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom, 0px)); }
+      .portal-nav-inner { height: 56px; }
+      .portal-nav-name { font-size: .8rem; }
+      .doc-grid { grid-template-columns: 1fr; }
+      .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 360px) {
+      .portal-tab { padding: .9rem .85rem; font-size: .8rem; }
+      .portal-nav-avatar { width: 30px; height: 30px; font-size: .78rem; }
     }
   </style>
 </head>
