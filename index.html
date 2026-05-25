@@ -283,7 +283,7 @@
       display: flex;
       align-items: center;
       overflow: hidden;
-      background: var(--navy);
+      background: var(--navy) url('https://images.unsplash.com/photo-1525953776754-6c4b7ee655ab?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
     }
     .hero-bg {
       position: absolute;
@@ -1365,20 +1365,12 @@
   <div class="container">
     <div class="about-grid">
       <div class="about-image-wrap fade-up">
-        <div class="about-image-placeholder">
-          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect x="8" y="20" width="64" height="52" rx="2" stroke="white" stroke-width="2"/>
-            <rect x="16" y="28" width="12" height="14" rx="1" fill="white" opacity="0.4"/>
-            <rect x="34" y="28" width="12" height="14" rx="1" fill="white" opacity="0.4"/>
-            <rect x="52" y="28" width="12" height="14" rx="1" fill="white" opacity="0.4"/>
-            <rect x="16" y="50" width="12" height="14" rx="1" fill="white" opacity="0.4"/>
-            <rect x="34" y="50" width="12" height="14" rx="1" fill="white" opacity="0.4"/>
-            <rect x="52" y="50" width="12" height="14" rx="1" fill="white" opacity="0.4"/>
-            <path d="M28 72V80M52 72V80" stroke="white" stroke-width="2" opacity="0.4"/>
-            <path d="M4 20L40 4L76 20" stroke="white" stroke-width="2" opacity="0.6"/>
-          </svg>
-          <span style="font-size: .8rem; padding: 0 2rem; text-align: center;">Edificio moderno – immagine rappresentativa</span>
-        </div>
+        <img
+          src="https://images.pexels.com/photos/27307397/pexels-photo-27307397/free-photo-of-a-modern-apartment-building-with-balconies-and-balconies.jpeg?auto=compress&cs=tinysrgb&w=900"
+          alt="Edificio condominiale moderno con balconi"
+          class="about-image-main"
+          loading="lazy"
+        >
       </div>
       <div class="about-text fade-up">
         <span class="section-label">Chi Siamo</span>
@@ -1801,12 +1793,16 @@
             </div>
           </div>
         </div>
-        <div class="map-placeholder">
-          <div>
-            <div style="font-size: 2rem; margin-bottom: .5rem;">📍</div>
-            <div>Area operativa: Bologna e provincia</div>
-            <div style="margin-top: .25rem; font-size: .75rem; opacity: .6;">Sopralluoghi su appuntamento</div>
-          </div>
+        <div class="map-placeholder" style="padding:0; background:none;">
+          <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=10.9985%2C44.1986%2C11.7069%2C44.7865&layer=mapnik&marker=44.4949%2C11.3426"
+            width="100%"
+            height="200"
+            style="border:0; display:block; width:100%; height:200px;"
+            loading="lazy"
+            title="Area operativa: Bologna e provincia"
+            aria-label="Mappa di Bologna e provincia"
+          ></iframe>
         </div>
       </div>
     </div>
