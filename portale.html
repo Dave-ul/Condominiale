@@ -1206,6 +1206,18 @@
           <input class="form-input" type="date" id="pay-due">
         </div>
       </div>
+      <div class="form-group">
+        <label class="form-label" for="pay-stripe-link">
+          <span style="display:flex;align-items:center;gap:.4rem;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            Stripe Payment Link <span style="font-weight:400;color:var(--gray-400)">(opzionale)</span>
+          </span>
+        </label>
+        <input class="form-input" type="url" id="pay-stripe-link" placeholder="https://buy.stripe.com/…" autocomplete="off">
+        <span style="font-size:.73rem;color:var(--gray-400);margin-top:.3rem;display:block;">
+          Crea il link su <strong>dashboard.stripe.com → Payment Links</strong> e incollalo qui. Il condomino vedrà un bottone "Paga ora".
+        </span>
+      </div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-outline" onclick="closeModal('modal-new-payment')">Annulla</button>
@@ -1767,7 +1779,13 @@
     let html = '<div style="display:flex;gap:.4rem;flex-wrap:wrap;">';
 
     if (!isAdmin() && (p.status === 'pending' || p.status === 'overdue')) {
-      html += `<button class="btn btn-sm btn-primary" onclick="openReceiptModal('${p.id}')">📎 Ricevuta</button>`;
+      if (p.stripe_payment_link) {
+        html += `<a class="btn btn-sm btn-primary" href="${esc(p.stripe_payment_link)}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Paga ora
+        </a>`;
+      }
+      html += `<button class="btn btn-sm btn-ghost" onclick="openReceiptModal('${p.id}')">📎 Ricevuta</button>`;
     }
 
     if (isAdmin()) {
@@ -1855,10 +1873,11 @@
 
   /* New Payment */
   window.handleNewPayment = async function () {
-    const email  = document.getElementById('pay-email').value.trim();
-    const desc   = document.getElementById('pay-desc').value.trim();
-    const amount = parseFloat(document.getElementById('pay-amount').value);
-    const due    = document.getElementById('pay-due').value;
+    const email       = document.getElementById('pay-email').value.trim();
+    const desc        = document.getElementById('pay-desc').value.trim();
+    const amount      = parseFloat(document.getElementById('pay-amount').value);
+    const due         = document.getElementById('pay-due').value;
+    const stripeLink  = document.getElementById('pay-stripe-link').value.trim();
 
     clearAlert('new-payment-alert');
 
@@ -1866,6 +1885,10 @@
     if (!desc)         { showAlert('new-payment-alert', 'error', 'Inserisci la descrizione.'); return; }
     if (!amount || amount <= 0) { showAlert('new-payment-alert', 'error', 'Inserisci un importo valido.'); return; }
     if (!due)          { showAlert('new-payment-alert', 'error', 'Seleziona la data di scadenza.'); return; }
+    if (stripeLink && !stripeLink.startsWith('https://')) {
+      showAlert('new-payment-alert', 'error', 'Il link Stripe deve iniziare con https://');
+      return;
+    }
 
     setLoading('btn-new-payment', true, 'Creazione…');
 
@@ -1882,11 +1905,12 @@
     }
 
     const { error: insertErr } = await sb.from('payments').insert({
-      resident_id:  profile.id,
-      description:  desc,
-      amount:       amount,
-      due_date:     due,
-      status:       'pending'
+      resident_id:          profile.id,
+      description:          desc,
+      amount:               amount,
+      due_date:             due,
+      status:               'pending',
+      stripe_payment_link:  stripeLink || null
     });
 
     if (insertErr) {
@@ -1898,7 +1922,7 @@
     showAlert('new-payment-alert', 'success', 'Pagamento creato con successo!');
     setLoading('btn-new-payment', false, 'Crea pagamento');
     // Reset
-    ['pay-email','pay-desc','pay-amount','pay-due'].forEach(function (id) {
+    ['pay-email','pay-desc','pay-amount','pay-due','pay-stripe-link'].forEach(function (id) {
       document.getElementById(id).value = '';
     });
 
