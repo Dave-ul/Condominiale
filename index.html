@@ -943,12 +943,7 @@
       overflow: hidden;
       height: 200px;
       background: linear-gradient(135deg, var(--navy) 0%, var(--blue-mid) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255,255,255,.5);
-      font-size: .85rem;
-      text-align: center;
+      display: block;
       border: 1px solid var(--gray-100);
     }
 
@@ -1137,6 +1132,7 @@
       .about-text { order: -1; padding-left: 0; }
       .about-image-wrap { order: 1; }
       .about-image-placeholder { height: 260px; }
+      .about-image-main { height: 280px; }
       .about-highlights { grid-template-columns: repeat(2, 1fr); }
       .servizi-grid { grid-template-columns: repeat(2, 1fr); }
       .vantaggi-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1166,6 +1162,7 @@
       .servizi-grid { grid-template-columns: 1fr; }
       .vantaggi-grid { grid-template-columns: 1fr; }
       .about-highlights { grid-template-columns: 1fr; }
+      .about-image-main { height: 240px; }
       #chi-siamo, #servizi, #vantaggi, #area-clienti, #faq, #contatti { padding: 2.75rem 0; }
       .contact-form-wrap { padding: 1.5rem; }
     }
