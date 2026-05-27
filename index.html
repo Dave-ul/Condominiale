@@ -18,12 +18,29 @@
   <meta name="twitter:image" content="https://roccaamministrazioni.it/og-image.png">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231a2942'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' font-weight='700' fill='%23c9a24b' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <!-- Self-hosted fonts -->
+  <link rel="preload" href="fonts/playfair-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
   <style>
+    /* Self-hosted variable fonts, latin subset */
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url('fonts/inter-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Playfair Display';
+      font-style: normal;
+      font-weight: 400 900;
+      font-display: swap;
+      src: url('fonts/playfair-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
     /* ============================
        CSS CUSTOM PROPERTIES
     ============================ */
@@ -34,6 +51,7 @@
       --blue-mid:   #1e4d7b;
       --accent:     #c8a96e;
       --accent-hover: #b8954e;
+      --accent-text: #806224; /* gold legibile (AA) su sfondi chiari */
       --white:      #ffffff;
       --off-white:  #f8f9fb;
       --gray-50:    #f4f6f9;
@@ -92,9 +110,11 @@
       font-weight: 600;
       letter-spacing: .12em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--accent-text);
       margin-bottom: .75rem;
     }
+    /* sezione scura: torna al gold chiaro (contrasto su navy) */
+    #vantaggi .section-label { color: var(--accent); }
     .section-title {
       font-family: var(--font-serif);
       font-size: clamp(1.75rem, 3.5vw, 2.6rem);
@@ -1059,7 +1079,7 @@
     }
     .footer-copyright {
       font-size: .78rem;
-      color: rgba(255,255,255,.35);
+      color: rgba(255,255,255,.6);
     }
     .footer-legal {
       display: flex;
@@ -1067,7 +1087,7 @@
     }
     .footer-legal a {
       font-size: .78rem;
-      color: rgba(255,255,255,.35);
+      color: rgba(255,255,255,.6);
       transition: color var(--transition);
     }
     .footer-legal a:hover { color: rgba(255,255,255,.7); }
