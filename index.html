@@ -420,41 +420,6 @@
     }
 
     /* ============================
-       TRUST BAR
-    ============================ */
-    #trust-bar {
-      background: var(--white);
-      border-bottom: 1px solid var(--gray-100);
-      padding: 1.25rem 0;
-    }
-    .trust-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1.25rem;
-    }
-    .trust-item {
-      display: flex;
-      align-items: center;
-      gap: .65rem;
-      font-size: .82rem;
-      font-weight: 500;
-      color: var(--gray-600);
-    }
-    .trust-icon {
-      width: 32px;
-      height: 32px;
-      background: var(--gray-50);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--blue);
-      flex-shrink: 0;
-    }
-
-    /* ============================
        CHI SIAMO
     ============================ */
     #chi-siamo {
@@ -1172,7 +1137,6 @@
       .nav-hamburger { display: flex; }
       .form-row { grid-template-columns: 1fr; }
       .servizi-header { flex-direction: column; align-items: flex-start; }
-      .trust-inner { justify-content: center; }
       #chi-siamo, #servizi, #vantaggi, #area-clienti, #faq, #contatti { padding: 3.5rem 0; }
       .contact-form-wrap { padding: 2rem; }
       .client-portal-card { padding: 1.75rem; }
@@ -1182,7 +1146,6 @@
       .hero-title { font-size: 1.75rem; }
       .hero-actions { flex-direction: column; }
       .hero-actions .btn { width: 100%; justify-content: center; }
-      .trust-inner { justify-content: center; }
       .servizi-grid { grid-template-columns: 1fr; }
       .vantaggi-grid { grid-template-columns: 1fr; }
       .about-highlights { grid-template-columns: 1fr; }
@@ -1387,35 +1350,6 @@
   </div>
 </section>
 
-<!-- ========================
-     TRUST BAR
-======================== -->
-<div id="trust-bar">
-  <div class="container">
-    <div class="trust-inner">
-      <div class="trust-item">
-        <div class="trust-icon">🏛️</div>
-        <span>Amministratore Certificato</span>
-      </div>
-      <div class="trust-item">
-        <div class="trust-icon">📋</div>
-        <span>Iscritto ANACI</span>
-      </div>
-      <div class="trust-item">
-        <div class="trust-icon">🔒</div>
-        <span>Gestione Dati Conforme GDPR</span>
-      </div>
-      <div class="trust-item">
-        <div class="trust-icon">💻</div>
-        <span>Piattaforma Digitale Dedicata</span>
-      </div>
-      <div class="trust-item">
-        <div class="trust-icon">📞</div>
-        <span>Reperibilità H24</span>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- ========================
      CHI SIAMO
@@ -2012,7 +1946,7 @@
   });
 
   /* --- Active nav link on scroll --- */
-  const sections = document.querySelectorAll('section[id], div[id="trust-bar"]');
+  const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
 
   const observer = new IntersectionObserver(function(entries) {
